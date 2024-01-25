@@ -11,8 +11,6 @@ public class Delivery {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "order_id")
-    private int orderId;
     @Column(name = "start_address")
     private String startAddress;
     @Column(name = "finish_address")
@@ -23,5 +21,11 @@ public class Delivery {
     private String status;
     @Column(name = "coordinates")
     private long coordinates;
+    @OneToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Orders orders;
+    @OneToOne(mappedBy = "del")
+    private Orders ord;
+
 
 }
