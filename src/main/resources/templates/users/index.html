@@ -7,16 +7,12 @@
 <body>
 
 <div th:each="person : ${users}">
-    <div th:if="${person.getType == 'courier'}">
-            <a th:text="${person.getName + ' ,' + person.getEmail() + ' ,' + person.getPassword + ' ,' + person.getType}">user</a>
-    </div>
-
+    <a th:href="@{/users/{id}(id=${person.getId()})}"
+        th:text="${person.getName + ' ,' + person.getEmail() + ' ,' + person.getPassword + ' ,' + person.getType}">user</a>
 </div>
 <br/>
 <hr/>
-<a href="/users/basket">Basket</a>
-<br/>
-<a href="/order/new">Зарегистрировать новый заказ</a>
+
 
 </body>
 </html>
