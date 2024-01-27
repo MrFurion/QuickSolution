@@ -23,6 +23,11 @@ public class Orders {
     @ManyToOne
     @JoinColumn(name = "users_id", referencedColumnName = "id")
     private Users owner;
+    @OneToOne(mappedBy = "orders")
+    private Delivery delivery;
+    @OneToOne
+    @JoinColumn(name = "delivery_id", referencedColumnName = "id")
+    private Delivery del;
 
 
     public Orders() {
