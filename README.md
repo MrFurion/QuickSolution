@@ -12,4 +12,4 @@ or in the docker container (spring profile test and both database and app are do
    
 ``` docker-compose up db -d
 
-3. Start Spring Boot application locally with spring profile local.
+2. Start Spring Boot application locally with spring profile local.
