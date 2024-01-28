@@ -1,11 +1,13 @@
 package by.trubetski.QuickSolution.controllers;
 
+import by.trubetski.QuickSolution.models.Orders;
+import by.trubetski.QuickSolution.models.Users;
 import by.trubetski.QuickSolution.services.UsersServices;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/users")
@@ -28,6 +30,17 @@ public class UsersControllers {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model){
         model.addAttribute("person", usersServices.findOne(id));
+        model.addAttribute("orders", usersServices.getOrdersOfPerson(id));
         return "users/show";
     }
+    @GetMapping("/new")
+    public String newPerson(@ModelAttribute("person") Users users, Model model) {
+        return "users/new";
+    }
+    @PostMapping
+    public String createPerson(@ModelAttribute("person")Users users){
+        usersServices.save(users);
+        return "redirect:users";
+    }
+
 }

@@ -9,6 +9,23 @@
 <br>
 <a href="/users/basket">Basket</a>
 <br/>
-<a href="/order/new">Зарегистрировать новый заказ</a>
+<br>
+<div th:if="${orders.isEmpty()}">
+    <p>You have been not orders</p>
+    <hr/>
+</div>
+
+<div th:if="${!orders.isEmpty()}">
+    <hr/>
+    <p>You have been orders:</p>
+    <br/>
+    <table th:each="order : ${orders}">
+        <tr th:text="${order.getName() + ', ' + order.getDate}"></tr>
+    </table>
+
+</div>
+<a href="/orders/createOrder">Зарегистрировать новый заказ</a>
+<br/>
+<a href="/users/new">Зарегистрировать нового человека</a>
 </body>
 </html>

@@ -33,7 +33,8 @@ public class Orders {
     public Orders() {
     }
 
-    public Orders( String name) {
+    public Orders(String name, Users owner) {
         this.name = name;
+        this.owner = owner;
     }
 }
