@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>CreateOrder</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
-
+<body>
 <form th:method="POST" th:action="@{/orders}" th:object="${orders}">
-  <label for="name">Orders name: </label>
-  <input type="text" th:field="*{name}" id="name"/>
-  <br/>
-  <input type="submit" value="Create!"/>
+    <label for="name">Orders name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <input type="submit" value="Create!"/>
 </form>
 </body>
 </html>

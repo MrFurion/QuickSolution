@@ -22,26 +22,25 @@ public class UsersServices {
     public UsersServices(UsersRepositories usersRepositories) {
         this.usersRepositories = usersRepositories;
     }
-    public List<Users> findAll(){
-        return usersRepositories.findAll();
+    public Users login(String username, String password) {
+        return usersRepositories.findByUsernameAndPassword(username, password);
+    }
+    @Transactional
+    public void createUser(Users users) {
+        if (usersRepositories.findByUsername(users.getUsername()).isPresent()) {
+            throw new RuntimeException("Username already exists");
+        }
+
+        if (usersRepositories.findByEmail(users.getEmail()).isPresent()) {
+            throw new RuntimeException("Email already exists");
+        }
+
+        usersRepositories.save(users);
     }
     public Users findOne(int id){
         Optional<Users> usersId = usersRepositories.findById(id);
         return usersId.orElse(null);
     }
-    public List<Orders> getOrdersOfPerson(int id){
-        Optional<Users> person = usersRepositories.findById(id);
 
-        if(person.isPresent()){
-            Hibernate.initialize(person.get().getOrders());
-            return person.get().getOrders();
-        }
-        else {
-            return Collections.emptyList();
-        }
-    }
-    @Transactional
-    public void save(Users users){
-        usersRepositories.save(users);
-    }
+
 }
