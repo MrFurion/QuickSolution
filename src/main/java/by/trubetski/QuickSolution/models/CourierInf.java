@@ -14,7 +14,7 @@ public class CourierInf {
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private Users users;
+    private User users;
 
     @Column(name = "status")
     private String status;
@@ -22,7 +22,7 @@ public class CourierInf {
     public CourierInf() {
     }
 
-    public CourierInf(Users users, String status) {
+    public CourierInf(User users, String status) {
         this.users = users;
         this.status = status;
     }

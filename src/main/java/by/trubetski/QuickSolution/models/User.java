@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Data
-public class Users {
+public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,10 +38,10 @@ public class Users {
     @OneToOne(mappedBy = "users")
     private CourierInf courierInf;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(String username, String email, String password) {
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
