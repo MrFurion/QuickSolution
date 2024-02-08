@@ -8,11 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 public class UserServices {
-    private final UserRepositories usersRepositories;
+    private final UserRepositories userRepositories;
 
     @Autowired
-    public UserServices(UserRepositories usersRepositories) {
-        this.usersRepositories = usersRepositories;
+    public UserServices(UserRepositories userRepositories) {
+        this.userRepositories = userRepositories;
     }
 
 }

@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping()
-public class LoginController {
+public class UserController {
     private final UserServices usersServices;
 
-    public LoginController(UserServices usersServices) {
+    public UserController(UserServices usersServices) {
         this.usersServices = usersServices;
     }
     @GetMapping("/hello")
-    public String login(){
+    public String userPage(){
         return "users/userPage";
     }
 

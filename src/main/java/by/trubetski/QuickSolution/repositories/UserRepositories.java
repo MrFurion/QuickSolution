@@ -9,5 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepositories extends JpaRepository<User, Integer> {
-    Optional<User> findByUsername(@Nullable String username);
+    @Nullable
+    Optional<User> findByUsername( String username);
 }
