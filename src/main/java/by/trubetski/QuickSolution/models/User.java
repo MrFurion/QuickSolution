@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Data
-public class Users {
+public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,7 @@ public class Users {
     @Column(name = "name")
     @NotEmpty(message = "Name should be not empty")
     @Size(min = 2, max = 30, message = "Name should be between 2 and 30 character")
-    private String name;
+    private String username;
 
     @Column(name = "email")
     @Email(message = "Please write a correct email, for example mrsmith@email.com")
@@ -38,11 +38,11 @@ public class Users {
     @OneToOne(mappedBy = "users")
     private CourierInf courierInf;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(String name, String email, String password) {
-        this.name = name;
+    public User(String username, String email, String password) {
+        this.username = username;
         this.email = email;
         this.password = password;
     }

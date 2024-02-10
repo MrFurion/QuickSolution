@@ -22,7 +22,7 @@ public class Orders {
     private String status;
     @ManyToOne
     @JoinColumn(name = "users_id", referencedColumnName = "id")
-    private Users owner;
+    private User owner;
     @OneToOne(mappedBy = "orders")
     private Delivery delivery;
     @OneToOne
@@ -33,7 +33,8 @@ public class Orders {
     public Orders() {
     }
 
-    public Orders( String name) {
+    public Orders(String name, User owner) {
         this.name = name;
+        this.owner = owner;
     }
 }
