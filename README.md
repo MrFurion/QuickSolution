@@ -14,3 +14,6 @@ or in the docker container (spring profile test and both database and app are do
 
 #### Stop the application:
 1. Stop Spring Boot application locally with spring profile local.
+   ```
+   docker compose down
+   ```
