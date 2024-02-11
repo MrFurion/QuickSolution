@@ -17,6 +17,8 @@ services:
     networks:
       - delivery-network
 
+volumes:
+  db_data:
 networks:
   delivery-network:
     driver: bridge
