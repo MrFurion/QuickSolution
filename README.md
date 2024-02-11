@@ -9,8 +9,8 @@ or in the docker container (spring profile test and both database and app are do
 ### Locally:
 1.  Start Spring Boot application locally with spring profile local.
 2.  ```
-    he
-3. ```
+    docker-compose up db -d
+    ```
 
 #### Stop the application:
 1. Stop Spring Boot application locally with spring profile local.
