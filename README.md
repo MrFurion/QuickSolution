@@ -6,7 +6,5 @@ Application can be started locally (spring profile local + database in the docke
 
 Locally:
 Start Spring Boot application locally with spring profile local.
-/
-/
 Stop the application:
 Stop Spring Boot application locally with spring profile local.
