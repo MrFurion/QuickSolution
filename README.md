@@ -9,7 +9,7 @@ or in the docker container (spring profile test and both database and app are do
 ### Locally:
 1.  Start Spring Boot application locally with spring profile local.
     ```
-    docker-compose up db -d
+    docker-compose up quick-solution-postgres-container -d
     ```
 
 #### Stop the application:
