@@ -3,15 +3,15 @@
 Example of REST API built on Spring Boot 3.
 
 ## How to run
-Application can be started locally (spring profile local + database in the docker container)
-or in the docker container (spring profile test and both database and app are docker containers)
-
+You can start application locally
 ### Locally:
-1.  Start Spring Boot application locally with spring profile local.
-    ```
+1.  Open the folder with the compose file in the project via the command line and start creating a container with the database with this command:
+   ```
     docker-compose up quick-solution-postgres-container -d
     ```
-
+2.  Start Spring Boot application in class QuickSolutionApplication.
+3.  Start build database in file ddl.sql 
+    
 #### Stop the application:
 1. Stop Spring Boot application locally with spring profile local.
    ```
