@@ -25,9 +25,9 @@ public class User {
     @Email(message = "Please write a correct email, for example mrsmith@email.com")
     @NotEmpty(message = "Email should be not empty")
     private String email;
+
     @Column(name = "password")
     @NotEmpty(message = "Password should be not empty")
-    @Size(min = 4, max = 30, message = "Password should be between 4 and 30 character")
     private String password;
 
     @Column(name = "type")
@@ -37,6 +37,8 @@ public class User {
 
     @OneToOne(mappedBy = "users")
     private CourierInf courierInf;
+
+
 
     public User() {
     }

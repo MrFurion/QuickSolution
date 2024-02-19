@@ -53,7 +53,7 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/hello", true)
                         .failureUrl("/auth/login?error=true"))
                 .authorizeHttpRequests(auth-> auth
-                        .requestMatchers("/auth/login", "/error").permitAll()
+                        .requestMatchers("/auth/login", "/error", "/register").permitAll()
                         .anyRequest().authenticated())
                 .build();
     }
