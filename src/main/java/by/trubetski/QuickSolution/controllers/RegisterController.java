@@ -45,7 +45,7 @@ public class RegisterController {
             log.info("User registration successful: " + user.getUsername());
             return "redirect:/auth/login?registrationSuccess";
         } catch (Exception e) {
-            log.error("Error during user registration", e);
+            log.error("Mistake during user registration", e);
             model.addAttribute("error", "Registration failed. Please try again.");
             return "auth/registration";
 

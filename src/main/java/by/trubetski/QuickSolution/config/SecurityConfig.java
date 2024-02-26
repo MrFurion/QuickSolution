@@ -1,8 +1,6 @@
 package by.trubetski.QuickSolution.config;
 
 
-import by.trubetski.QuickSolution.models.User;
-import by.trubetski.QuickSolution.repositories.UserRepositories;
 import by.trubetski.QuickSolution.services.AppUserDetailsServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
