@@ -1,8 +1,6 @@
 package by.trubetski.QuickSolution.config;
 
 
-import by.trubetski.QuickSolution.models.User;
-import by.trubetski.QuickSolution.repositories.UserRepositories;
 import by.trubetski.QuickSolution.services.AppUserDetailsServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -53,7 +51,7 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/hello", true)
                         .failureUrl("/auth/login?error=true"))
                 .authorizeHttpRequests(auth-> auth
-                        .requestMatchers("/auth/login", "/error").permitAll()
+                        .requestMatchers("/auth/login", "/error", "/register").permitAll()
                         .anyRequest().authenticated())
                 .build();
     }
