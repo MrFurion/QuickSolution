@@ -1,8 +1,11 @@
+
+
 # QuickSolution
 
 Example of REST API built on Spring Boot 3.
 
 ## How to run
+
 You can start application locally
 ### Locally:
 1.  Open the folder with the compose file in the project via the command line and start creating a container with the database with this command:
