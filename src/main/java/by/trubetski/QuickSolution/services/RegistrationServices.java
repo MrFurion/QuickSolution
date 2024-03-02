@@ -44,7 +44,7 @@ public class RegistrationServices {
             log.info("User saved successfully: " + user.getUsername());
         } catch (Exception e) {
             log.error("Error saving user", e);
-            throw new RuntimeException("Error saving user", e);
+            throw new RuntimeException("Exception saving user", e);
         }
     }
     public Optional<User> getPersonByUsername(String username) {
