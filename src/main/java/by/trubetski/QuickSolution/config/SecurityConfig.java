@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
+
 /**
  *
  */
@@ -34,6 +35,7 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService(){
         return new AppUserDetailsServices();
     }
+
 
 
     /**
