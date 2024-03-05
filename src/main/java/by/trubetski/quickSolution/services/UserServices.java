@@ -43,7 +43,6 @@ public class UserServices {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AppUsersDetails appUsersDetails = (AppUsersDetails) authentication.getPrincipal();
         int userId = appUsersDetails.getUser().getId();
-        System.out.println(userId);
         return userId;
     }
 }
