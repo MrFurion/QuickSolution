@@ -18,4 +18,3 @@ You can start application locally
    ```
    docker compose down
    ```
->>>>>>>>> Temporary merge branch 2

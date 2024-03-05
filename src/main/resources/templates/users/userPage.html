@@ -5,9 +5,26 @@
     <title>HelloUser</title>
 </head>
 <body>
-<a href="/orders/createOrder">Зарегистрировать новый заказ</a>
+<a href="/orders/createOrder">Create new order</a>
+<br>
+<div th:if="${orders.isEmpty()}">
+    <p style="color: red">You not have orders</p>
+    <hr/>
+</div>
+
+<div th:if="${!orders.isEmpty()}">
+    <hr/>
+    <p style="color: blue">You have orders :</p>
+    <br/>
+    <table th:each="order : ${orders}">
+        <tr style="color: chocolate">
+        <td th:text="${'Order : ' + order.getName() + '. '}"></td>
+        <td th:text="${'Registered time : ' + #dates.format(order.getDate(), 'yyyy-MM-dd HH:mm')}"></td>
+        </tr>
+    </table>
+
+</div>
 <hr>
-<!--<a href="/logout">Logout</a>-->
 <button onclick="window.location.href='/logout'">Logout</button>
 </body>
 </html>
