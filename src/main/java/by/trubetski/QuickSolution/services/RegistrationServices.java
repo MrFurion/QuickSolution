@@ -43,7 +43,7 @@ public class RegistrationServices {
             userRepositories.save(user);
             log.info("User saved successfully: " + user.getUsername());
         } catch (Exception e) {
-            log.error("Error saving user", e);
+            log.error("Exception saving user", e);
             throw new RuntimeException("Exception saving user", e);
         }
     }
