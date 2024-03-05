@@ -1,3 +1,4 @@
+
 You can start application locally
 ### Locally:
 1.  Open the folder with the compose file in the project via the command line and start creating a container with the database with this command:
@@ -17,4 +18,4 @@ You can start application locally
    ```
    docker compose down
    ```
->>>>>>> develop
+>>>>>>>>> Temporary merge branch 2
