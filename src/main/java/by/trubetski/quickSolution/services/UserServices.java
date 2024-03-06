@@ -25,6 +25,12 @@ public class UserServices {
         this.userRepositories = userRepositories;
     }
 
+    /**
+     *This method used for search orders of authenticated user
+     * according to the received identifier.
+     * Also Hibernate.initialize(user.get().getOrders());
+     * is used for the explicit initialization of the collection of orders associated with the user object.
+     */
     public List<Orders> userOrder(){
         int userId = getOrderByUserId();
         Optional<User> user = userRepositories.findById(userId);
@@ -38,6 +44,11 @@ public class UserServices {
 
     }
 
+    /**
+     * This method used to retrieve the identifier of the current authenticated user.
+     * Hi used SecurityContext of Spring Security.
+     * Also used AppUserDetail which is  a wrapper for the User entity.
+     */
     @Transactional
     public int  getOrderByUserId(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

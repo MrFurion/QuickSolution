@@ -27,9 +27,14 @@ public class RegistrationServices {
         this.userRepositories = userRepositories;
         this.passwordEncoder = passwordEncoder;
     }
+
+    /**
+     *The method will check for the absence of duplicate email and name in the database. Additionally,
+     * it hashes the password and saves it when all user conditions are met for storing in the database.
+     * Also add roles user.
+     */
     @Transactional
     public void createUser(User user) {
-        // в строках 33-39 мне кажется я дублирую код находящийся в UserValidator
         if (userRepositories.findByUsername(user.getUsername()).isPresent()) {
             throw new UsernameAlreadyExistsException("Username already exists");
         }

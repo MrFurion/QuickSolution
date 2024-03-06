@@ -6,6 +6,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+/**
+ * This class is used to wrap the User object into an object that adheres to the UserDetails interface,
+ * providing the necessary information for authentication and authorization in Spring Security.
+ */
 public class AppUsersDetails implements UserDetails {
     private final User user;
 
