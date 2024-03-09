@@ -30,6 +30,7 @@ public class UserServices {
      * according to the received identifier.
      * Also Hibernate.initialize(user.get().getOrders());
      * is used for the explicit initialization of the collection of orders associated with the user object.
+     *
      * @return a list of all orders for the user.
      */
     public List<Orders> userOrder(){
@@ -47,7 +48,7 @@ public class UserServices {
 
     /**
      * This method used to retrieve the identifier of the current authenticated user.
-     * Hi used SecurityContext of Spring Security.
+     * used SecurityContext of Spring Security.
      * Also used AppUserDetail which is  a wrapper for the User entity.
      * @return The user ID as an int.
      */
