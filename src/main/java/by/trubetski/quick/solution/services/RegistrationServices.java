@@ -34,9 +34,6 @@ public class RegistrationServices {
      * Also add roles user.
      *
      * @param user The User entity to be created.
-     * @throws UsernameAlreadyExistsException if the username already exists in the database.
-     * @throws EmailAlreadyExistsException    if the email already exists in the database.
-     * @throws RuntimeException              if an exception occurs while saving the user.
      */
     @Transactional
     public void createUser(User user) {
