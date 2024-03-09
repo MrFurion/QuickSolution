@@ -30,7 +30,8 @@ public class AppUserDetailsServices implements UserDetailsService {
      * @param username the username to load user details for.
      * @return UserDetails object containing user information.
      * @throws UsernameNotFoundException if the username is not found in the database.
-     */@Override
+     */
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepositories.findByUsername(username);
         if (user.isEmpty()){
