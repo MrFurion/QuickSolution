@@ -22,7 +22,6 @@
         <td th:text="${'Registered time : ' + #dates.format(order.getDate(), 'yyyy-MM-dd HH:mm')}"></td>
         </tr>
     </table>
-
 </div>
 <hr>
 <form id="logout-form" th:action="@{/logout}" method="post">

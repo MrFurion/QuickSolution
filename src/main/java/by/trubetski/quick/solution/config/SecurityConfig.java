@@ -29,6 +29,7 @@ public class SecurityConfig {
      * which can be used by Spring Security to process authentication
      * and authorization requests based information obout user.
      * return your "UserDetailsService".
+     *
      * @return appUserDetailsServices new object your custom class
      */
     @Bean
@@ -68,6 +69,7 @@ public class SecurityConfig {
      * for authentication users where:
      * appUserDetailsServices provides information about users
      * getPasswordEncoder used for verification password on database.
+     *
      * @param appUserDetailsServices the instance of {@link AppUserDetailsServices} that provides information about users
      * @return the {@link PasswordEncoder} used for password verification in the database
      */
