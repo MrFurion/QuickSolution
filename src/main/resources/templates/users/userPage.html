@@ -8,7 +8,7 @@
 <a href="/orders/createOrder">Create new order</a>
 <br>
 <div th:if="${orders.isEmpty()}">
-    <p style="color: red">You not have orders</p>
+    <p style="color: red">you currently do not have any orders</p>
     <hr/>
 </div>
 
@@ -25,6 +25,8 @@
 
 </div>
 <hr>
-<button onclick="window.location.href='/logout'">Logout</button>
+<form id="logout-form" th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
 </body>
 </html>
