@@ -1,5 +1,6 @@
 package by.trubetski.quick.solution.services;
 
+import by.trubetski.quick.solution.interfaces.EntityServices;
 import by.trubetski.quick.solution.models.Orders;
 import by.trubetski.quick.solution.models.User;
 import by.trubetski.quick.solution.repositories.UserRepositories;
@@ -17,7 +18,8 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class UserServices {
+public class UserServices implements EntityServices<User> {
+
     private final UserRepositories userRepositories;
 
     @Autowired
@@ -57,5 +59,31 @@ public class UserServices {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AppUsersDetails appUsersDetails = (AppUsersDetails) authentication.getPrincipal();
         return appUsersDetails.getUser().getId();
+    }
+
+    @Override
+    public User findById(int id) {
+        Optional<User> user = userRepositories.findById(id);
+        return user.orElse(null);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepositories.findAll();
+    }
+
+    @Override
+    public void save(User user) {
+        userRepositories.save(user);
+    }
+
+    @Override
+    public void update(User user) {
+
+    }
+
+    @Override
+    public void delete(int id) {
+
     }
 }

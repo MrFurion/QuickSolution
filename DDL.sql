@@ -23,6 +23,7 @@ create table Delivery(
                          coordinates point not null
 );
 
+
 alter table orders add column delivery_id int UNIQUE REFERENCES Delivery(id);
 
 create table courierInf(
