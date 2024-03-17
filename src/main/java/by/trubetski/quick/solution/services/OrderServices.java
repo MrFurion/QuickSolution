@@ -7,11 +7,13 @@ import by.trubetski.quick.solution.models.Orders;
 import by.trubetski.quick.solution.repositories.DeliveryRepositories;
 import by.trubetski.quick.solution.repositories.OrderRepositories;
 import by.trubetski.quick.solution.repositories.UserRepositories;
+import org.postgresql.geometric.PGpoint;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.*;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -23,8 +25,10 @@ public class OrderServices implements EntityServices<OrderForm> {
     private final UserServices userServices;
     private final DeliveryRepositories deliveryRepositories;
 
+
     @Autowired
-    public OrderServices(UserRepositories userRepositories, OrderRepositories orderRepositories, UserServices userServices, DeliveryRepositories deliveryRepositories) {
+    public OrderServices(UserRepositories userRepositories, OrderRepositories orderRepositories,
+                         UserServices userServices, DeliveryRepositories deliveryRepositories) {
         this.userRepositories = userRepositories;
         this.orderRepositories = orderRepositories;
         this.userServices = userServices;
@@ -52,6 +56,7 @@ public class OrderServices implements EntityServices<OrderForm> {
         // Создаем объект Orders и устанавливаем необходимые свойства
         Orders orders = new Orders();
         orders.setDate(new Date());
+        orders.setStatus("New");
         orders.setName(entity.getOrderName());
         orders.setOwner(userServices.findById(id));
 
@@ -59,6 +64,18 @@ public class OrderServices implements EntityServices<OrderForm> {
         Delivery delivery = new Delivery();
         delivery.setStartAddress(entity.getStartAddress());
         delivery.setFinishAddress(entity.getFinishAddress());
+
+        Double latitude = entity.getStartLat();
+        Double longitude = entity.getStartLng();
+
+        Point point = new Point(latitude, longitude);
+        System.out.println(point);
+        delivery.setCoordinates(point);
+
+
+
+
+
 
         // Устанавливаем связь между заказом и доставкой и сохраняем объект Delivery в репозитории
         delivery.setOrders(orders);
@@ -68,6 +85,7 @@ public class OrderServices implements EntityServices<OrderForm> {
         orders.setDelivery(delivery);
         orders.setDel(delivery);
         orderRepositories.save(orders);
+
 
         System.out.println("Action 4");
     }

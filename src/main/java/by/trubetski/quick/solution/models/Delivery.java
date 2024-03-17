@@ -1,10 +1,18 @@
 package by.trubetski.quick.solution.models;
 
+
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Data;
+import org.hibernate.annotations.*;
+import org.hibernate.type.SqlTypes;
+import org.postgresql.geometric.PGpoint;
+import org.springframework.data.geo.Point;
 
-
-import java.awt.*;
 
 @Entity
 @Table(name = "Delivery")
@@ -23,7 +31,10 @@ public class Delivery {
     @Column(name = "status")
     private String status;
 
-    //поле coordinates времмено удаленно + убран null в бд
+
+    @Column(name = "coordinates")
+    @JdbcTypeCode(SqlTypes.POINT)
+    private Point coordinates;
 
 
     @OneToOne

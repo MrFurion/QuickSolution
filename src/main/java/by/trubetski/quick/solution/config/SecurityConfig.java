@@ -57,7 +57,8 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/user", true)
                         .failureUrl("/auth/login?error=true"))
                 .authorizeHttpRequests(auth-> auth
-                        .requestMatchers("/auth/login", "/error", "/register","/logout").permitAll()
+                        .requestMatchers("/auth/login", "/error", "/register","/logout",
+                                "/static/css/**").permitAll()
                         .anyRequest().authenticated())
                 .logout((logout)-> logout
                         .logoutSuccessUrl("/auth/login"))

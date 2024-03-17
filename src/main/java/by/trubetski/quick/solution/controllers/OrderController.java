@@ -33,6 +33,16 @@ public class OrderController {
     }
     @PostMapping("/create")
     public String saveOrder(@ModelAttribute("orders") OrderForm orderForm){
+        Double startLat = orderForm.getStartLat();
+        Double startLng = orderForm.getStartLng();
+        Double endLat = orderForm.getEndLat();
+        Double endLng = orderForm.getEndLng();
+
+        // Вывод координат в консоль
+        System.out.println("Start Latitude: " + startLat);
+        System.out.println("Start Longitude: " + startLng);
+        System.out.println("End Latitude: " + endLat);
+        System.out.println("End Longitude: " + endLng);
         System.out.println("Action 2");
         orderServices.save(orderForm);
 

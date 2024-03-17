@@ -3,6 +3,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Order Form</title>
+    <link rel="stylesheet" href="/static/css/logonPage/pageOrder.css"/>
+    <script type="text/javascript" src="/static/js/loginPage/pageOrder.js"></script>
 </head>
 <body>
 
@@ -18,8 +20,95 @@
     <label for="orderName">Order Name:</label>
     <input type="text" id="orderName" th:field="*{orderName}" required><br>
 
+    <!-- Добавляем скрытые поля для координат -->
+    <input type="hidden" id="startLat" name="startLat">
+    <input type="hidden" id="startLng" name="startLng">
+    <input type="hidden" id="endLat" name="endLat">
+    <input type="hidden" id="endLng" name="endLng">
+
     <input type="submit" value="Create Order">
 </form>
+
+<hr>
+<div id="floating-panel">
+    <strong>Начало:</strong>
+    <select id="start">
+        <option value="Минск">Минск</option>
+        <option value="Брест">Брест</option>
+        <option value="Гомель">Гомель</option>
+        <option value="Гродно">Гродно</option>
+        <option value="Могилев">Могилев</option>
+        <option value="Витебск">Витебск</option>
+        <option value="Барановичи">Барановичи</option>
+        <option value="Пинск">Пинск</option>
+        <!-- Добавьте другие города Беларуси по необходимости -->
+    </select>
+    <br />
+    <strong>Конец:</strong>
+    <select id="end">
+        <option value="Минск">Минск</option>
+        <option value="Брест">Брест</option>
+        <option value="Гомель">Гомель</option>
+        <option value="Гродно">Гродно</option>
+        <option value="Могилев">Могилев</option>
+        <option value="Витебск">Витебск</option>
+        <option value="Барановичи">Барановичи</option>
+        <option value="Пинск">Пинск</option>
+        <!-- Добавьте другие города Беларуси по необходимости -->
+    </select>
+</div>
+<div id="container">
+    <div id="map"></div>
+    <div id="sidebar"></div>
+</div>
+<div style="display: none">
+    <div id="floating-panel">
+        <strong>Start:</strong>
+        <select id="start">
+            <option value="Минск">Минск</option>
+            <option value="Брест">Брест</option>
+            <option value="Гомель">Гомель</option>
+            <option value="Гродно">Гродно</option>
+            <option value="Могилев">Могилев</option>
+            <option value="Витебск">Витебск</option>
+            <option value="Барановичи">Барановичи</option>
+            <option value="Пинск">Пинск</option>
+            <!-- Добавьте другие города Беларуси по необходимости -->
+        </select>
+        <br />
+        <strong>End:</strong>
+        <select id="end">
+            <option value="Минск">Минск</option>
+            <option value="Брест">Брест</option>
+            <option value="Гомель">Гомель</option>
+            <option value="Гродно">Гродно</option>
+            <option value="Могилев">Могилев</option>
+            <option value="Витебск">Витебск</option>
+            <option value="Барановичи">Барановичи</option>
+            <option value="Пинск">Пинск</option>
+            <!-- Добавьте другие города Беларуси по необходимости -->
+        </select>
+    </div>
+</div>
+<style>
+    #map {
+        flex-basis: 50%;
+        flex-grow: 4;
+        height: 100%;
+    }
+</style>
+
+<!--
+  The `defer` attribute causes the callback to execute after the full HTML
+  document has been parsed. For non-blocking uses, avoiding race conditions,
+  and consistent behavior across browsers, consider loading using Promises.
+  See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+  for more information.
+  -->
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+        defer
+></script>
 
 </body>
 </html>

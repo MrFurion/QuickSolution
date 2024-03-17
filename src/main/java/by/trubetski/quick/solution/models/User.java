@@ -5,6 +5,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.hibernate.annotations.Type;
+
+import java.io.Serializable;
+import java.lang.annotation.ElementType;
 import java.util.List;
 
 @Entity
@@ -33,6 +37,7 @@ public class User {
     @Column(name = "type")
     private String type;
     @OneToMany(mappedBy = "owner")
+
     private List<Orders> orders;
 
     @OneToOne(mappedBy = "users")
