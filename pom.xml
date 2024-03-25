@@ -87,14 +87,6 @@
 			<artifactId>hibernate-spatial</artifactId>
 			<version>6.4.4.Final</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-database-postgresql -->
-<!--		<dependency>-->
-<!--			<groupId>org.flywaydb</groupId>-->
-<!--			<artifactId>flyway-database-postgresql</artifactId>-->
-<!--			<version>10.10.0</version>-->
-<!--			<scope>runtime</scope>-->
-<!--		</dependency>-->
-
 	</dependencies>
 	<build>
 		<plugins>
@@ -110,7 +102,6 @@
 					<locations>
 						<location>filesystem:src/main/resources/migrations</location>
 					</locations>
-
 				</configuration>
 			</plugin>
 			<plugin>
