@@ -68,6 +68,7 @@ function initMap() {
         }
     });
 }
+
 function calculateAndDisplayRoute() {
     if (startMarker && endMarker) {
         const start = startMarker.getPosition();

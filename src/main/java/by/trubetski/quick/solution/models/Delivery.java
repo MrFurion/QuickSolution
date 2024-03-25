@@ -2,25 +2,30 @@ package by.trubetski.quick.solution.models;
 
 
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Data;
-import org.hibernate.annotations.*;
-import org.hibernate.type.SqlTypes;
-import org.postgresql.geometric.PGpoint;
-import org.springframework.data.geo.Point;
+
+import org.hibernate.annotations.IdGeneratorType;
+import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.generator.Generator;
+import org.locationtech.jts.geom.Point;
+
+
+import java.io.Serializable;
+
+import static org.hibernate.annotations.UuidGenerator.*;
 
 
 @Entity
 @Table(name = "Delivery")
 @Data
-public class Delivery {
+public class Delivery implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int id;
     @Column(name = "start_address")
     private String startAddress;
@@ -32,9 +37,10 @@ public class Delivery {
     private String status;
 
 
-    @Column(name = "coordinates")
-    @JdbcTypeCode(SqlTypes.POINT)
-    private Point coordinates;
+    @Column(name = "start_coordinates")
+    private Point coordinatesStart;
+    @Column(name = "finish_coordinates")
+    private Point coordinatesFinish;
 
 
     @OneToOne

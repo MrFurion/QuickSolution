@@ -81,27 +81,38 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+		<!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-spatial -->
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>42.7.3</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-spatial</artifactId>
-			<version>5.6.1.Final</version>
+			<version>6.4.4.Final</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/net.postgis/postgis-jdbc -->
-		<dependency>
-			<groupId>net.postgis</groupId>
-			<artifactId>postgis-jdbc</artifactId>
-			<version>2023.1.0</version>
-		</dependency>
-	</dependencies>
+		<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-database-postgresql -->
+<!--		<dependency>-->
+<!--			<groupId>org.flywaydb</groupId>-->
+<!--			<artifactId>flyway-database-postgresql</artifactId>-->
+<!--			<version>10.10.0</version>-->
+<!--			<scope>runtime</scope>-->
+<!--		</dependency>-->
 
+	</dependencies>
 	<build>
 		<plugins>
+			<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-maven-plugin -->
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>8.0.3</version>
+				<configuration>
+					<url>jdbc:postgresql://localhost:5433/mydatabase</url>
+					<user>postgres</user>
+					<password>mysecretpassword</password>
+					<locations>
+						<location>filesystem:src/main/resources/migrations</location>
+					</locations>
+
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

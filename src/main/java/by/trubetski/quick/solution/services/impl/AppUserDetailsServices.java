@@ -1,4 +1,4 @@
-package by.trubetski.quick.solution.services;
+package by.trubetski.quick.solution.services.impl;
 
 import by.trubetski.quick.solution.models.User;
 import by.trubetski.quick.solution.repositories.UserRepositories;
@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 /**

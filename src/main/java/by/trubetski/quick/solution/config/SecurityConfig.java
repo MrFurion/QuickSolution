@@ -1,7 +1,7 @@
 package by.trubetski.quick.solution.config;
 
 
-import by.trubetski.quick.solution.services.AppUserDetailsServices;
+import by.trubetski.quick.solution.services.impl.AppUserDetailsServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -11,16 +11,75 @@
 <h2>Create Order</h2>
 
 <form th:action="@{/order/create}" th:method="post" th:object="${orders}">
-    <label for="startAddress">Start Address:</label>
-    <input type="text" id="startAddress" th:field="*{startAddress}" required><br>
+    <div id="container1">
+        <!-- Start Address Column -->
+        <div id="startAddressColumn">
+            <div class="input-group">
+                <label for="startCity">Start Address: <br> City</label>
+                <input type="text" id="startCity" th:field="*{startCity}" required>
+            </div>
+            <div class="input-group">
+                <label for="startStreet">Street:</label>
+                <input type="text" id="startStreet" th:field="*{startStreet}" required>
+            </div>
+            <div class="input-group">
+                <label for="startHouse">House Number:</label>
+                <input type="text" id="startHouse" th:field="*{startHouseNumber}" required>
+            </div>
+            <div class="input-group">
+                <label for="startEntrance">Entrance Number:</label>
+                <input type="text" id="startEntrance" th:field="*{startEntranceNumber}" required>
+            </div>
+            <div class="input-group">
+                <label for="startFlat">Flat Number:</label>
+                <input type="text" id="startFlat" th:field="*{startFlatNumber}" required>
+            </div>
+        </div>
 
-    <label for="finishAddress">Finish Address:</label>
-    <input type="text" id="finishAddress" th:field="*{finishAddress}" required><br>
+        <!-- Finish Address Column -->
+        <div id="finishAddressColumn">
+            <div class="input-group">
+                <label for="finishCity">Finish Address: <br> City </label>
+                <input type="text" id="finishCity" th:field="*{finishCity}" required>
+            </div>
+            <div class="input-group">
+                <label for="finishStreet">Street:</label>
+                <input type="text" id="finishStreet" th:field="*{finishStreet}" required>
+            </div>
+            <div class="input-group">
+                <label for="finishHouse">House Number:</label>
+                <input type="text" id="finishHouse" th:field="*{finishHouseNumber}" required>
+            </div>
+            <div class="input-group">
+                <label for="finishEntrance">Entrance Number:</label>
+                <input type="text" id="finishEntrance" th:field="*{finishEntranceNumber}" required>
+            </div>
+            <div class="input-group">
+                <label for="finishFlat">Flat Number:</label>
+                <input type="text" id="finishFlat" th:field="*{finishFlatNumber}" required>
+            </div>
+        </div>
 
-    <label for="orderName">Order Name:</label>
-    <input type="text" id="orderName" th:field="*{orderName}" required><br>
+        <!-- Delivery Type Column -->
+        <div id="deliveryTypeColumn">
+            <div class="input-group">
+                <label for="deliveryType">Delivery Type:</label>
+                <select id="deliveryType" th:field="*{deliveryType}">
+                    <option value="express">Express</option>
+                    <option value="standard">Standard</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="deliveryKind">Delivery Kind:</label>
+                <select id="deliveryKind" th:field="*{orderType}">
+                    <option value="food">Food</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="people">People</option>
+                </select>
+            </div>
+        </div>
+    </div>
 
-    <!-- Добавляем скрытые поля для координат -->
     <input type="hidden" id="startLat" name="startLat">
     <input type="hidden" id="startLng" name="startLng">
     <input type="hidden" id="endLat" name="endLat">
@@ -28,75 +87,12 @@
 
     <input type="submit" value="Create Order">
 </form>
-
 <hr>
-<div id="floating-panel">
-    <strong>Начало:</strong>
-    <select id="start">
-        <option value="Минск">Минск</option>
-        <option value="Брест">Брест</option>
-        <option value="Гомель">Гомель</option>
-        <option value="Гродно">Гродно</option>
-        <option value="Могилев">Могилев</option>
-        <option value="Витебск">Витебск</option>
-        <option value="Барановичи">Барановичи</option>
-        <option value="Пинск">Пинск</option>
-        <!-- Добавьте другие города Беларуси по необходимости -->
-    </select>
-    <br />
-    <strong>Конец:</strong>
-    <select id="end">
-        <option value="Минск">Минск</option>
-        <option value="Брест">Брест</option>
-        <option value="Гомель">Гомель</option>
-        <option value="Гродно">Гродно</option>
-        <option value="Могилев">Могилев</option>
-        <option value="Витебск">Витебск</option>
-        <option value="Барановичи">Барановичи</option>
-        <option value="Пинск">Пинск</option>
-        <!-- Добавьте другие города Беларуси по необходимости -->
-    </select>
-</div>
+
 <div id="container">
     <div id="map"></div>
     <div id="sidebar"></div>
 </div>
-<div style="display: none">
-    <div id="floating-panel">
-        <strong>Start:</strong>
-        <select id="start">
-            <option value="Минск">Минск</option>
-            <option value="Брест">Брест</option>
-            <option value="Гомель">Гомель</option>
-            <option value="Гродно">Гродно</option>
-            <option value="Могилев">Могилев</option>
-            <option value="Витебск">Витебск</option>
-            <option value="Барановичи">Барановичи</option>
-            <option value="Пинск">Пинск</option>
-            <!-- Добавьте другие города Беларуси по необходимости -->
-        </select>
-        <br />
-        <strong>End:</strong>
-        <select id="end">
-            <option value="Минск">Минск</option>
-            <option value="Брест">Брест</option>
-            <option value="Гомель">Гомель</option>
-            <option value="Гродно">Гродно</option>
-            <option value="Могилев">Могилев</option>
-            <option value="Витебск">Витебск</option>
-            <option value="Барановичи">Барановичи</option>
-            <option value="Пинск">Пинск</option>
-            <!-- Добавьте другие города Беларуси по необходимости -->
-        </select>
-    </div>
-</div>
-<style>
-    #map {
-        flex-basis: 50%;
-        flex-grow: 4;
-        height: 100%;
-    }
-</style>
 
 <!--
   The `defer` attribute causes the callback to execute after the full HTML

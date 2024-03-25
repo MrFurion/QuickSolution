@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CourierInfoRepository extends JpaRepository<CourierInf, Integer> {
+public interface CourierInfoRepositories extends JpaRepository<CourierInf, Integer> {
 }

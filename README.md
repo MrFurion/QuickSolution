@@ -7,7 +7,10 @@ You can start application locally
    ```
 2.  Open the project in IntelliJ IDEA
 3.  Start Spring Boot application in class QuickSolutionApplication.
-4.  Also open the ddl.sql file and run the database build
+4.  Also open the Maven/Plugins/flyway and use:
+   a)flyway:baseline
+   b)flyway:clean
+   c)flyway:migrate
 5.  open your browser and go to
    ```
    http://localhost:8080/
