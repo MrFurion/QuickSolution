@@ -11,4 +11,9 @@ public class AuthController {
         return "auth/login";
 
     }
+
+    @GetMapping("/testPage")
+    public String testPage(){
+        return "some another impl done by another dev around the same time";
+    }
 }
