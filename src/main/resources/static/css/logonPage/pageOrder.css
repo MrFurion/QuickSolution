@@ -106,3 +106,6 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: deepskyblue; /* Темно-синий цвет фона при наведении */
 }
+.error-message {
+    color: red;
+}

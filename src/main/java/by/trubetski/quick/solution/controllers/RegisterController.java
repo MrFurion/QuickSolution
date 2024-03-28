@@ -38,6 +38,7 @@ public class RegisterController {
     public String create(@ModelAttribute("user") @Valid User user,
                          BindingResult bindingResult, Model model) {
         userValidator.validate(user, bindingResult);
+        log.info(bindingResult.toString());
         if (bindingResult.hasErrors()){
             return "auth/registration";
         }

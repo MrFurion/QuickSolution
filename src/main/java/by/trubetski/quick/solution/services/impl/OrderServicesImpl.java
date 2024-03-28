@@ -11,6 +11,7 @@ import by.trubetski.quick.solution.repositories.OrderRepositories;
 import by.trubetski.quick.solution.repositories.UserRepositories;
 import by.trubetski.quick.solution.services.OrderServices;
 import by.trubetski.quick.solution.services.UserServices;
+import by.trubetski.quick.solution.services.ValidationServices;
 import lombok.extern.slf4j.Slf4j;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -18,6 +19,8 @@ import org.locationtech.jts.geom.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+
 import java.util.Date;
 
 
@@ -30,20 +33,28 @@ public class OrderServicesImpl implements OrderServices {
     private final UserServices userServices;
     private final DeliveryRepositories deliveryRepositories;
     private final ItemRepositories itemRepositories;
+    private final ValidationServices validationServices;
 
 
     @Autowired
     public OrderServicesImpl(UserRepositories userRepositories, OrderRepositories orderRepositories,
-                             UserServices userServices, DeliveryRepositories deliveryRepositories, ItemRepositories itemRepositories) {
+                             UserServices userServices, DeliveryRepositories deliveryRepositories, ItemRepositories itemRepositories, ValidationServices validationServices) {
         this.userRepositories = userRepositories;
         this.orderRepositories = orderRepositories;
         this.userServices = userServices;
         this.deliveryRepositories = deliveryRepositories;
         this.itemRepositories = itemRepositories;
+        this.validationServices = validationServices;
     }
 
     @Transactional
-    public void save(OrderForm entity) {
+    public boolean save(OrderForm entity) {
+        BindingResult bindingResult = validationServices.validate(entity);
+        if (bindingResult.hasErrors()){
+            return false;
+        }
+
+
         /**
          * Getting the ID of the current user from the userService
          */
@@ -117,5 +128,6 @@ public class OrderServicesImpl implements OrderServices {
         item.setTypeDelivery(entity.getDeliveryType());
         item.setOrders(orders);
         itemRepositories.save(item);
+        return true;
     }
 }
