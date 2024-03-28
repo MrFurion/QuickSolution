@@ -1,0 +1,108 @@
+/**
+ * @license
+ * Copyright 2019 Google LLC. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    height: 100%;
+    display: flex;
+}
+
+#sidebar {
+    flex-basis: 15rem;
+    flex-grow: 1;
+    padding: 1rem;
+    max-width: 30rem;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+#map {
+    flex-basis: 12.5%; /* Уменьшаем ширину карты до 12.5% */
+    flex-grow: 4;
+    height: 25%; /* Возвращаем высоту карты на 25% */
+}
+
+#floating-panel {
+    position: absolute;
+    top: 10px;
+    left: 25%;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+    font-family: "Roboto", "sans-serif";
+    line-height: 30px;
+    padding-left: 10px;
+}
+
+input[type="text"],
+select {
+    border: 2px solid #ccc; /* Цвет границы */
+    border-radius: 10px; /* Радиус закругления углов */
+    padding: 8px 12px; /* Внутренний отступ */
+    font-size: 16px; /* Размер шрифта */
+}
+
+/* Стили для контейнера */
+#container1 {
+    display: flex; /* Расположение элементов в строку */
+    justify-content: space-between; /* Равномерное распределение пространства между элементами */
+    background-color: #e0f7fa; /* Голубой фон */
+    padding: 20px; /* Внутренний отступ контейнера */
+}
+
+/* Стили для каждой колонки формы */
+.form-column {
+    flex: 1; /* Равномерно распределяем доступное пространство на все колонки */
+}
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.input-group label {
+    margin-right: 10px;
+    width: 150px; /* Ширина лейбла */
+}
+
+.input-group input,
+.input-group select {
+    flex: 1;
+}
+h2 {
+    text-align: center; /* Выравнивание текста по центру */
+    color: yellow; /* Желтый цвет текста */
+    background-color: orange; /* Оранжевый цвет фона */
+    padding: 10px; /* Поля вокруг содержимого */
+    border-radius: 10px; /* Закругление углов */
+}
+
+/* Добавить эффект тени для заголовка */
+h2 {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Тень */
+}
+/* Стили для кнопки */
+input[type="submit"] {
+    background-color: wheat; /* Синий цвет фона */
+    color: black; /* Белый цвет текста */
+    padding: 15px 20px; /* Задаем отступы вокруг текста кнопки */
+    border: none; /* Убираем границу */
+    border-radius: 20px; /* Закругляем углы */
+    cursor: pointer; /* Указываем, что при наведении курсора должна появляться рука */
+}
+
+/* Добавляем эффект при наведении */
+input[type="submit"]:hover {
+    background-color: deepskyblue; /* Темно-синий цвет фона при наведении */
+}

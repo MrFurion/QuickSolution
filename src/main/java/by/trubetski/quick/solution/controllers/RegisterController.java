@@ -1,6 +1,7 @@
 package by.trubetski.quick.solution.controllers;
 
 import by.trubetski.quick.solution.services.RegistrationServices;
+import by.trubetski.quick.solution.services.impl.RegistrationServicesImpl;
 import by.trubetski.quick.solution.util.UserValidator;
 import by.trubetski.quick.solution.models.User;
 import jakarta.validation.Valid;
@@ -22,8 +23,8 @@ public class RegisterController {
     private final UserValidator userValidator;
 
     @Autowired
-    public RegisterController(RegistrationServices registrationServices, UserValidator userValidator) {
-        this.registrationServices = registrationServices;
+    public RegisterController(RegistrationServicesImpl registrationServicesImpl, UserValidator userValidator) {
+        this.registrationServices = registrationServicesImpl;
         this.userValidator = userValidator;
     }
 

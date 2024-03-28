@@ -16,8 +16,9 @@ public class Orders {
     @Column(name = "date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
-    @Column(name = "name")
-    private String name;
+    @OneToOne(mappedBy = "orders")
+    private Item item;
+
     @Column(name = "status")
     private String status;
     @ManyToOne
@@ -33,8 +34,7 @@ public class Orders {
     public Orders() {
     }
 
-    public Orders(String name, User owner) {
-        this.name = name;
+    public Orders( User owner) {
         this.owner = owner;
     }
 }

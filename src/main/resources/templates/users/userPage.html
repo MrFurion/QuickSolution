@@ -5,7 +5,7 @@
     <title>HelloUser</title>
 </head>
 <body>
-<a href="/orders/createOrder">Create new order</a>
+<a href="/order">Create new order</a>
 <br>
 <div th:if="${orders.isEmpty()}">
     <p style="color: red">you currently do not have any orders</p>
@@ -18,7 +18,7 @@
     <br/>
     <table th:each="order : ${orders}">
         <tr style="color: chocolate">
-        <td th:text="${'Order : ' + order.getName() + '. '}"></td>
+        <td th:text="${'Order : ' + order.getDate()+'. ' + order.delivery.getCoordinatesStart() + ' '}"></td>
         <td th:text="${'Registered time : ' + #dates.format(order.getDate(), 'yyyy-MM-dd HH:mm')}"></td>
         </tr>
     </table>

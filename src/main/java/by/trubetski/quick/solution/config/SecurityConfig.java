@@ -1,7 +1,7 @@
 package by.trubetski.quick.solution.config;
 
 
-import by.trubetski.quick.solution.services.AppUserDetailsServices;
+import by.trubetski.quick.solution.services.impl.AppUserDetailsServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -57,7 +57,8 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/user", true)
                         .failureUrl("/auth/login?error=true"))
                 .authorizeHttpRequests(auth-> auth
-                        .requestMatchers("/auth/login", "/error", "/register","/logout").permitAll()
+                        .requestMatchers("/auth/login", "/error", "/register","/logout",
+                                "/static/css/**").permitAll()
                         .anyRequest().authenticated())
                 .logout((logout)-> logout
                         .logoutSuccessUrl("/auth/login"))

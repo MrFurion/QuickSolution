@@ -1,6 +1,7 @@
 package by.trubetski.quick.solution.controllers;
 
 import by.trubetski.quick.solution.services.UserServices;
+import by.trubetski.quick.solution.services.impl.UserServicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,7 @@ public class UserController {
     private final UserServices userServices;
 
     @Autowired
-    public UserController(UserServices userServices) {
+    public UserController(UserServicesImpl userServices) {
         this.userServices = userServices;
     }
 

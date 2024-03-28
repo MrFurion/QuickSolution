@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   quick-solution-postgres-container:
-    image: postgres
+    image: kartoza/postgis:latest
     restart: always
     container_name: quick-solution-postgres-container
     environment:

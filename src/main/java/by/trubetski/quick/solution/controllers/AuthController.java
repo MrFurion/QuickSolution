@@ -14,6 +14,5 @@ public class AuthController {
 
     @GetMapping("/testPage")
     public String testPage(){
-        return "some another impl done by another dev around the same time";
-    }
+        return "auth/testPage";
 }
