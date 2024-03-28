@@ -6,6 +6,7 @@ public class PasswordEncoderExample {
     public static void main(String[] args) {
         String password = "4444";
 
+
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(password);
 
