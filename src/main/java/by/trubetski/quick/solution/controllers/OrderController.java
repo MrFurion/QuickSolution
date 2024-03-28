@@ -32,6 +32,7 @@ public class OrderController {
                             BindingResult bindingResult, Model model,
                             RedirectAttributes redirectAttributes){
        boolean save = orderServices.save(orderForm);
+
         if (!save) {
             model.addAttribute("error", bindingResult.getAllErrors());
             log.info(orderForm.toString());
