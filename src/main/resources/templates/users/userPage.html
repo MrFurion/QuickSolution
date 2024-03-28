@@ -7,6 +7,11 @@
 <body>
 <a href="/order">Create new order</a>
 <br>
+<br>
+<div th:if="${successMessage}" class="success-message">
+    <p th:text="${successMessage}"></p>
+</div>
+<br>
 <div th:if="${orders.isEmpty()}">
     <p style="color: red">you currently do not have any orders</p>
     <hr/>

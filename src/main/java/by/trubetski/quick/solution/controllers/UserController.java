@@ -18,8 +18,9 @@ public class UserController {
     }
 
     @GetMapping()
-    public String userPage(Model model){
+    public String userPage(Model model,  @ModelAttribute("successMessage") String successMessage){
         model.addAttribute("orders", userServices.userOrder());
+        model.addAttribute("successMessage", successMessage);
         return "users/userPage";
     }
 }
