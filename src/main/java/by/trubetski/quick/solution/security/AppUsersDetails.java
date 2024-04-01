@@ -3,7 +3,6 @@ package by.trubetski.quick.solution.security;
 import by.trubetski.quick.solution.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 
 /**

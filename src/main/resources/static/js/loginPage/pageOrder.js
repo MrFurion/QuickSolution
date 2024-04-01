@@ -69,16 +69,25 @@ function initMap() {
     });
 }
 
+
+function setDefaultValues() {
+    console.log("Setting default values");
+
+    // Устанавливаем дефолтные значения
+    document.getElementById("startEntrance").value = "not available";
+    document.getElementById("startFlat").value = "not available";
+}
+
 function calculateAndDisplayRoute() {
     if (startMarker && endMarker) {
         const start = startMarker.getPosition();
         const end = endMarker.getPosition();
 
         // Заполняем скрытые поля координатами
-        document.getElementById("startLat").value = startMarker.getPosition().lat();
-        document.getElementById("startLng").value = startMarker.getPosition().lng();
-        document.getElementById("endLat").value = endMarker.getPosition().lat();
-        document.getElementById("endLng").value = endMarker.getPosition().lng();
+        document.getElementById("startLat").value = start.lat();
+        document.getElementById("startLng").value = start.lng();
+        document.getElementById("endLat").value = end.lat();
+        document.getElementById("endLng").value = end.lng();
 
         directionsService.route(
             {
@@ -107,10 +116,14 @@ function sendCoordinatesToServer() {
         // Замените URL на URL вашего сервера и обработчика данных
         const url = '/saveCoordinates';
         const data = {
-            startLat: startCoordinates.lat(),
-            startLng: startCoordinates.lng(),
-            endLat: endCoordinates.lat(),
-            endLng: endCoordinates.lng()
+            "startApartment": {
+                "lat": startCoordinates.lat(),
+                "lng": startCoordinates.lng()
+            },
+            "finishApartment": {
+                "lat": endCoordinates.lat(),
+                "lng": endCoordinates.lng()
+            }
         };
 
         // Отправляем данные на сервер

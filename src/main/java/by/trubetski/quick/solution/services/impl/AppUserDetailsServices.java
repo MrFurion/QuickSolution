@@ -18,6 +18,7 @@ import java.util.Optional;
 @Service
 @Slf4j
 public class AppUserDetailsServices implements UserDetailsService {
+
     @Autowired
     private UserRepositories userRepositories;
 

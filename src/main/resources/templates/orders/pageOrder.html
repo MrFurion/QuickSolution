@@ -17,70 +17,86 @@
         <div id="startAddressColumn">
             <div class="input-group">
                 <label for="startCity">Start Address: <br> City</label>
-                <input type="text" id="startCity" name="startCity" th:field="*{startCity}" required>
+                <input type="text" id="startCity" name="startCity" th:field="*{startApartment.city}" required>
             </div>
-            <div class="error-message" th:if="${#fields.hasErrors('startCity')}" th:errors="${orders.startCity}" th:name="startCity">error</div>
+            <div class="error-message" th:if="${#fields.hasErrors('startApartment.city')}"
+                 th:errors="${orders.startApartment.city}" th:name="startCity">error
+            </div>
             <br>
             <div class="input-group">
                 <label for="startStreet">Street:</label>
-                <input type="text" id="startStreet" th:field="*{startStreet}" required>
+                <input type="text" id="startStreet" th:field="*{startApartment.street}" required>
             </div>
-            <div class="error-message" th:if="${#fields.hasErrors('startStreet')}" th:errors="${orders.startStreet}" th:name="startStreet">error</div>
+            <div class="error-message" th:if="${#fields.hasErrors('startApartment.street')}"
+                 th:errors="${orders.setStartApartment.street}" th:name="startStreet">error
+            </div>
             <br>
             <div class="input-group">
                 <label for="startHouse">House Number:</label>
-                <input type="text" id="startHouse" th:field="*{startHouseNumber}" required>
+                <input type="text" id="startHouse" th:field="*{startApartment.houseNumber}" required>
             </div>
-            <div class="error-message" th:if="${#fields.hasErrors('startHouseNumber')}" th:errors="${orders.startHouseNumber}" th:name="startHouse">error</div>
+            <div class="error-message" th:if="${#fields.hasErrors('startApartment.houseNumber')}"
+                 th:errors="${orders.startApartment.houseNumber}" th:name="startHouse">error
+            </div>
             <br>
             <div class="input-group">
                 <label for="startEntrance">Entrance Number:</label>
-                <input type="text" id="startEntrance" th:field="*{startEntranceNumber}" required>
+                <input type="text" id="startEntrance" th:field="*{startApartment.entranceNumber}" required>
             </div>
-            <div class="error-message" th:if="${#fields.hasErrors('startEntranceNumber')}" th:errors="${orders.startEntranceNumber}" th:name="startEntrance">error</div>
+            <div class="error-message" th:if="${#fields.hasErrors('startApartment.entranceNumber')}"
+                 th:errors="${orders.startApartment.entranceNumber}" th:name="startEntrance">error
+            </div>
             <br>
             <div class="input-group">
                 <label for="startFlat">Flat Number:</label>
-                <input type="text" id="startFlat" th:field="*{startFlatNumber}" required>
+                <input type="text" id="startFlat" th:field="*{startApartment.flatNumber}" required>
             </div>
-            <div class="error-message" th:if="${#fields.hasErrors('startFlatNumber')}" th:errors="${orders.startFlatNumber}" th:name="startFlat">error</div>
+            <div class="error-message" th:if="${#fields.hasErrors('startApartment.flatNumber')}"
+                 th:errors="${orders.startApartment.flatNumber}" th:name="startFlat">error
+            </div>
             <br>
         </div>
-
         <!-- Finish Address Column -->
         <div id="finishAddressColumn">
             <div class="input-group">
                 <label for="finishCity">Finish Address: <br> City </label>
-                <input type="text" id="finishCity" th:field="*{finishCity}" required>
+                <input type="text" id="finishCity" th:field="*{finishApartment.city}" required>
             </div>
-            <div class="error-message" th:if="${#fields.hasErrors('finishCity')}" th:errors="${orders.finishCity}" th:name="finishCity">error</div>
+            <div class="error-message" th:if="${#fields.hasErrors('finishApartment.city')}"
+                 th:errors="${orders.finishApartment.city}" th:name="finishCity">error
+            </div>
             <br>
             <div class="input-group">
                 <label for="finishStreet">Street:</label>
-                <input type="text" id="finishStreet" th:field="*{finishStreet}" required>
+                <input type="text" id="finishStreet" th:field="*{finishApartment.street}" required>
             </div>
-            <div class="error-message" th:if="${#fields.hasErrors('finishStreet')}" th:errors="${orders.finishStreet}" th:name="finishStreet">error</div>
+            <div class="error-message" th:if="${#fields.hasErrors('finishApartment.street')}"
+                 th:errors="${orders.finishApartment.street}" th:name="finishStreet">error
+            </div>
             <br>
             <div class="input-group">
                 <label for="finishHouseNumber">House Number:</label>
-                <input type="text" id="finishHouseNumber" th:field="*{finishHouseNumber}" required>
+                <input type="text" id="finishHouseNumber" th:field="*{finishApartment.houseNumber}"  required>
             </div>
-            <div class="error-message" th:if="${#fields.hasErrors('finishHouseNumber')}" th:errors="${orders.finishHouseNumber}" th:name="finishHouseNumber">error</div>
+            <div class="error-message" th:if="${#fields.hasErrors('finishApartment.houseNumber')}"
+                 th:errors="${orders.finishApartment.houseNumber}" th:name="finishHouseNumber">error
+            </div>
             <br>
             <div class="input-group">
                 <label for="finishEntranceNumber">Entrance Number:</label>
-                <input type="text" id="finishEntranceNumber" th:field="*{finishEntranceNumber}" required>
+                <input type="text" id="finishEntranceNumber" th:field="*{finishApartment.entranceNumber}"  required>
             </div>
-            <div class="error-message" th:if="${#fields.hasErrors('finishEntranceNumber')}" th:errors="${orders.finishEntranceNumber}" th:name="finishEntranceNumber">error</div>
+            <div class="error-message" th:if="${#fields.hasErrors('finishApartment.entranceNumber')}"
+                 th:errors="${orders.finishApartment.entranceNumber}" th:name="finishEntranceNumber">error
+            </div>
             <br>
             <div class="input-group">
                 <label for="finishFlatNumber">Flat Number:</label>
-                <input type="text" id="finishFlatNumber" th:field="*{finishFlatNumber}" required>
+                <input type="text" id="finishFlatNumber" th:field="*{finishApartment.flatNumber}"  required>
             </div>
-            <div class="error-message" th:if="${#fields.hasErrors('finishFlatNumber')}" th:errors="${orders.finishFlatNumber}" th:name="finishFlatNumber">error</div>
-            <br>
-            <br>
-            <div class="error-message" th:if="${#fields.hasErrors('orderType')}" th:errors="${orders.orderType}" th:name="orderType">error</div>
+            <div class="error-message" th:if="${#fields.hasErrors('finishApartment.flatNumber')}"
+                 th:errors="${orders.finishApartment.flatNumber}" th:name="finishFlatNumber">error
+            </div>
             <br>
         </div>
 
@@ -104,17 +120,17 @@
         </div>
     </div>
 
-    <input type="hidden" id="startLat" name="startLat">
-    <div class="error-message" th:if="${#fields.hasErrors('startLat')}" th:errors="${orders.startLat}" th:name="startLat">error</div>
+    <input type="hidden" id="startLat" name="startApartment.lat">
+    <div class="error-message" th:if="${#fields.hasErrors('startApartment.lat')}" th:errors="${orders.startApartment.lat}" th:name="startApartment.lat">error</div>
 
-    <input type="hidden" id="startLng" name="startLng">
-    <div class="error-message" th:if="${#fields.hasErrors('startLng')}" th:errors="${orders.startLng}" th:name="startLng">error</div>
+    <input type="hidden" id="startLng" name="startApartment.lng">
+    <div class="error-message" th:if="${#fields.hasErrors('startApartment.lng')}" th:errors="${orders.startApartment.lng}" th:name="startApartment.lng">error</div>
 
-    <input type="hidden" id="endLat" name="endLat">
-    <div class="error-message" th:if="${#fields.hasErrors('endLat')}" th:errors="${orders.endLat}" th:name="endLat">error</div>
+    <input type="hidden" id="endLat" name="finishApartment.lat">
+    <div class="error-message" th:if="${#fields.hasErrors('finishApartment.lat')}" th:errors="${orders.finishApartment.lat}" th:name="finishApartment.lat">error</div>
 
-    <input type="hidden" id="endLng" name="endLng">
-    <div class="error-message" th:if="${#fields.hasErrors('endLng')}" th:errors="${orders.endLng}" th:name="endLng">error</div>
+    <input type="hidden" id="endLng" name="finishApartment.lng">
+    <div class="error-message" th:if="${#fields.hasErrors('finishApartment.lng')}" th:errors="${orders.finishApartment.lng}" th:name="finishApartment.lng">error</div>
 
     <input type="submit" value="Create Order">
     <br>

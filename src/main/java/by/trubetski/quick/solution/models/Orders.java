@@ -2,7 +2,6 @@ package by.trubetski.quick.solution.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.util.Date;
 
 @Entity
@@ -18,7 +17,6 @@ public class Orders {
     private Date date;
     @OneToOne(mappedBy = "orders")
     private Item item;
-
     @Column(name = "status")
     private String status;
     @ManyToOne
@@ -29,7 +27,6 @@ public class Orders {
     @OneToOne
     @JoinColumn(name = "delivery_id", referencedColumnName = "id")
     private Delivery del;
-
 
     public Orders() {
     }

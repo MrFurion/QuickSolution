@@ -1,7 +1,6 @@
 package by.trubetski.quick.solution.services;
 
 import by.trubetski.quick.solution.models.User;
-
 import java.util.Optional;
 
 public interface RegistrationServices {

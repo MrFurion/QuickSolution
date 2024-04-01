@@ -28,10 +28,10 @@ public class AuthenticationTest {
     public void testLoginSuccess() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/process_login")
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
-                        .param("username", "kotn")
+                        .param("username", "test_1")
                         .param("password", "4444"))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/hello")); // Поменяйте на вашу целевую страницу
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/user"));
     }
 
     @Test

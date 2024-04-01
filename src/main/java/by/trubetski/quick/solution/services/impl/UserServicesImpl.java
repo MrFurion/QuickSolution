@@ -5,26 +5,20 @@ import by.trubetski.quick.solution.models.User;
 import by.trubetski.quick.solution.repositories.UserRepositories;
 import by.trubetski.quick.solution.security.AppUsersDetails;
 import by.trubetski.quick.solution.services.UserServices;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class UserServicesImpl implements UserServices{
-
     private final UserRepositories userRepositories;
-
-    @Autowired
-    public UserServicesImpl(UserRepositories userRepositories) {
-        this.userRepositories = userRepositories;
-    }
 
     /**
      *This method used for search orders of authenticated user
@@ -45,7 +39,6 @@ public class UserServicesImpl implements UserServices{
         }else {
             return Collections.emptyList();
         }
-
     }
 
     /**
