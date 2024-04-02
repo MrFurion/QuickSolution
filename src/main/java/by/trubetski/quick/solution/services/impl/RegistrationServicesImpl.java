@@ -5,7 +5,7 @@ import by.trubetski.quick.solution.exception.UsernameAlreadyExistsException;
 import by.trubetski.quick.solution.models.User;
 import by.trubetski.quick.solution.repositories.UserRepositories;
 import by.trubetski.quick.solution.services.RegistrationServices;
-import by.trubetski.quick.solution.util.Role;
+import by.trubetski.quick.solution.util.enums.Role;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;

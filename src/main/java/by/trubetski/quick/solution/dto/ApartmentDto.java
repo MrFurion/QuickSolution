@@ -1,12 +1,15 @@
-package by.trubetski.quick.solution.models;
+package by.trubetski.quick.solution.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-public class Apartment {
+@AllArgsConstructor
+
+public class ApartmentDto {
 
     @NotEmpty
     @Size(min = 2, max = 15, message = "City should be between 2 and 15 characters")
@@ -28,16 +31,6 @@ public class Apartment {
     @NotNull(message = "The map is located below")
     private Double lng;
 
-    public Apartment() {
-    }
-
-    public Apartment(String city, String street, String houseNumber, String entranceNumber, String flatNumber, Double lat, Double lng) {
-        this.city = city;
-        this.street = street;
-        this.houseNumber = houseNumber;
-        this.entranceNumber = entranceNumber;
-        this.flatNumber = flatNumber;
-        this.lat = lat;
-        this.lng = lng;
+    public ApartmentDto() {
     }
 }

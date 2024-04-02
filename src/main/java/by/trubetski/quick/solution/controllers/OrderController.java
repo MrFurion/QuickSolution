@@ -1,7 +1,7 @@
 package by.trubetski.quick.solution.controllers;
 
 import by.trubetski.quick.solution.exception.ValidationException;
-import by.trubetski.quick.solution.models.OrderForm;
+import by.trubetski.quick.solution.dto.OrderFormDto;
 import by.trubetski.quick.solution.services.OrderServices;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +22,12 @@ public class OrderController {
 
     @GetMapping
     public String pageOrder(Model model) {
-        model.addAttribute("orders", new OrderForm());
+        model.addAttribute("orders", new OrderFormDto());
         return "orders/pageOrder";
     }
 
     @PostMapping("/create")
-    public String saveOrder(@ModelAttribute("orders") @Valid OrderForm orderForm,
+    public String saveOrder(@ModelAttribute("orders") @Valid OrderFormDto orderForm,
                             BindingResult bindingResult, Model model,
                             RedirectAttributes redirectAttributes) {
          try {

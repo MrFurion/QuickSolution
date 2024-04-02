@@ -69,15 +69,6 @@ function initMap() {
     });
 }
 
-
-function setDefaultValues() {
-    console.log("Setting default values");
-
-    // Устанавливаем дефолтные значения
-    document.getElementById("startEntrance").value = "not available";
-    document.getElementById("startFlat").value = "not available";
-}
-
 function calculateAndDisplayRoute() {
     if (startMarker && endMarker) {
         const start = startMarker.getPosition();
@@ -147,5 +138,50 @@ function sendCoordinatesToServer() {
             .catch(error => {
                 console.error('Произошла ошибка:', error.message);
             });
+    }
+}
+window.onload = function() {
+    setDefaultValues();
+};
+
+function setDefaultValues() {
+    document.getElementById("startEntrance").value = "not available";
+    document.getElementById("startFlat").value = "not available";
+    document.getElementById("finishEntranceNumber").value = "not available";
+    document.getElementById("finishFlatNumber").value = "not available";
+}
+function toggleMoreData() {
+    var moreData = document.getElementById("moreData");
+    if (moreData.style.display === "none") {
+        moreData.style.display = "block";
+        // Проверяем, были ли введены пользователем значения, и если нет, то устанавливаем дефолтные
+        var startEntrance = document.getElementById("startEntrance").value;
+        var startFlat = document.getElementById("startFlat").value;
+        if (startEntrance === "") {
+            document.getElementById("startEntrance").value = "not available";
+        }
+        if (startFlat === "") {
+            document.getElementById("startFlat").value = "not available";
+        }
+    } else {
+        moreData.style.display = "none";
+    }
+}
+
+function toggleFinishMoreData() {
+    var moreDataElement = document.getElementById("moreDataFinish");
+    if (moreDataElement.style.display === "none") {
+        moreDataElement.style.display = "block";
+        // Проверяем, были ли введены пользователем значения, и если нет, то устанавливаем дефолтные
+        var finishEntrance = document.getElementById("finishEntranceNumber").value;
+        var finishFlat = document.getElementById("finishFlatNumber").value;
+        if (finishEntrance === "") {
+            document.getElementById("finishEntranceNumber").value = "not available";
+        }
+        if (finishFlat === "") {
+            document.getElementById("finishFlatNumber").value = "not available";
+        }
+    } else {
+        moreDataElement.style.display = "none";
     }
 }

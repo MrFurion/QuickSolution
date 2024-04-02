@@ -1,22 +1,22 @@
-package by.trubetski.quick.solution.models;
+package by.trubetski.quick.solution.dto;
 
 import jakarta.validation.Valid;
 import lombok.Data;
 
 @Data
-public class OrderForm {
+public class OrderFormDto {
 
     private String deliveryType;
     private String orderType;
     @Valid
-    private Apartment startApartment;
+    private ApartmentDto startApartment;
     @Valid
-    private Apartment finishApartment;
+    private ApartmentDto finishApartment;
 
-    public OrderForm() {
+    public OrderFormDto() {
     }
 
-    public OrderForm(String deliveryType, String orderType, Apartment startApartment, Apartment finishApartment) {
+    public OrderFormDto(String deliveryType, String orderType, ApartmentDto startApartment, ApartmentDto finishApartment) {
         this.deliveryType = deliveryType;
         this.orderType = orderType;
         this.startApartment = startApartment;

@@ -1,4 +1,4 @@
-package by.trubetski.quick.solution.util;
+package by.trubetski.quick.solution.util.enums;
 
 public enum Role {
     ROLE_USER("ROLE_USER"),
