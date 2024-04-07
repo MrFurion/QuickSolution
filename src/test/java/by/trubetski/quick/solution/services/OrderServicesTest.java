@@ -11,9 +11,7 @@ import by.trubetski.quick.solution.repositories.OrderRepositories;
 import by.trubetski.quick.solution.services.impl.OrderServicesImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.mockito.Mockito.times;
-
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
