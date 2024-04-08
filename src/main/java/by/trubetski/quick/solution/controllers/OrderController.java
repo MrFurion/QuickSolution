@@ -1,38 +1,43 @@
 package by.trubetski.quick.solution.controllers;
 
-import by.trubetski.quick.solution.models.OrderForm;
+import by.trubetski.quick.solution.exception.ValidationException;
+import by.trubetski.quick.solution.dto.OrderFormDto;
 import by.trubetski.quick.solution.services.OrderServices;
-import by.trubetski.quick.solution.services.UserServices;
-import by.trubetski.quick.solution.services.impl.OrderServicesImpl;
-import by.trubetski.quick.solution.services.impl.UserServicesImpl;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/order")
 @Slf4j
+@RequiredArgsConstructor
 public class OrderController {
-    private final OrderServices orderServices;
-    private final UserServices userServices;
 
-    @Autowired
-    public OrderController(OrderServices orderServices, UserServices userServices) {
-        this.orderServices = orderServices;
-        this.userServices = userServices;
-    }
+    private final OrderServices orderServices;
 
     @GetMapping
-    public String pageOrder(Model model){
-        model.addAttribute("orders", new OrderForm());
+    public String pageOrder(Model model) {
+        model.addAttribute("orders", new OrderFormDto());
         return "orders/pageOrder";
     }
+
     @PostMapping("/create")
-    public String saveOrder(@ModelAttribute("orders") OrderForm orderForm){
-        log.info(orderForm.toString());
-        orderServices.save(orderForm);
-        return "orders/pageOrder";
+    public String saveOrder(@ModelAttribute("orders") @Valid OrderFormDto orderForm,
+                            BindingResult bindingResult, Model model,
+                            RedirectAttributes redirectAttributes) {
+         try {
+             orderServices.save(orderForm);
+             redirectAttributes.addFlashAttribute("successMessage", "Order successfully created!");
+             return "redirect:/user";
+         } catch (ValidationException e){
+             model.addAttribute("error", bindingResult.getAllErrors());
+             log.error(bindingResult.toString());
+             return "orders/pageOrder";
+         }
     }
 }

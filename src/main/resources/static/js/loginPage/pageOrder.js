@@ -75,10 +75,10 @@ function calculateAndDisplayRoute() {
         const end = endMarker.getPosition();
 
         // Заполняем скрытые поля координатами
-        document.getElementById("startLat").value = startMarker.getPosition().lat();
-        document.getElementById("startLng").value = startMarker.getPosition().lng();
-        document.getElementById("endLat").value = endMarker.getPosition().lat();
-        document.getElementById("endLng").value = endMarker.getPosition().lng();
+        document.getElementById("startLat").value = start.lat();
+        document.getElementById("startLng").value = start.lng();
+        document.getElementById("endLat").value = end.lat();
+        document.getElementById("endLng").value = end.lng();
 
         directionsService.route(
             {
@@ -107,10 +107,14 @@ function sendCoordinatesToServer() {
         // Замените URL на URL вашего сервера и обработчика данных
         const url = '/saveCoordinates';
         const data = {
-            startLat: startCoordinates.lat(),
-            startLng: startCoordinates.lng(),
-            endLat: endCoordinates.lat(),
-            endLng: endCoordinates.lng()
+            "startApartment": {
+                "lat": startCoordinates.lat(),
+                "lng": startCoordinates.lng()
+            },
+            "finishApartment": {
+                "lat": endCoordinates.lat(),
+                "lng": endCoordinates.lng()
+            }
         };
 
         // Отправляем данные на сервер
@@ -134,5 +138,50 @@ function sendCoordinatesToServer() {
             .catch(error => {
                 console.error('Произошла ошибка:', error.message);
             });
+    }
+}
+window.onload = function() {
+    setDefaultValues();
+};
+
+function setDefaultValues() {
+    document.getElementById("startEntrance").value = "not available";
+    document.getElementById("startFlat").value = "not available";
+    document.getElementById("finishEntranceNumber").value = "not available";
+    document.getElementById("finishFlatNumber").value = "not available";
+}
+function toggleMoreData() {
+    var moreData = document.getElementById("moreData");
+    if (moreData.style.display === "none") {
+        moreData.style.display = "block";
+        // Проверяем, были ли введены пользователем значения, и если нет, то устанавливаем дефолтные
+        var startEntrance = document.getElementById("startEntrance").value;
+        var startFlat = document.getElementById("startFlat").value;
+        if (startEntrance === "") {
+            document.getElementById("startEntrance").value = "not available";
+        }
+        if (startFlat === "") {
+            document.getElementById("startFlat").value = "not available";
+        }
+    } else {
+        moreData.style.display = "none";
+    }
+}
+
+function toggleFinishMoreData() {
+    var moreDataElement = document.getElementById("moreDataFinish");
+    if (moreDataElement.style.display === "none") {
+        moreDataElement.style.display = "block";
+        // Проверяем, были ли введены пользователем значения, и если нет, то устанавливаем дефолтные
+        var finishEntrance = document.getElementById("finishEntranceNumber").value;
+        var finishFlat = document.getElementById("finishFlatNumber").value;
+        if (finishEntrance === "") {
+            document.getElementById("finishEntranceNumber").value = "not available";
+        }
+        if (finishFlat === "") {
+            document.getElementById("finishFlatNumber").value = "not available";
+        }
+    } else {
+        moreDataElement.style.display = "none";
     }
 }

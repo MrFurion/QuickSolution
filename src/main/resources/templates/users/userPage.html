@@ -2,10 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>HelloUser</title>
+    <title>Hello User</title>
 </head>
 <body>
 <a href="/order">Create new order</a>
+<br>
+<br>
+<div th:if="${successMessage}" class="success-message">
+    <p th:text="${successMessage}"></p>
+</div>
 <br>
 <div th:if="${orders.isEmpty()}">
     <p style="color: red">you currently do not have any orders</p>

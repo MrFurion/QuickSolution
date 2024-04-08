@@ -1,117 +1,87 @@
 package by.trubetski.quick.solution.services.impl;
 
-
+import by.trubetski.quick.solution.exception.ValidationException;
 import by.trubetski.quick.solution.models.Delivery;
 import by.trubetski.quick.solution.models.Item;
-import by.trubetski.quick.solution.models.OrderForm;
+import by.trubetski.quick.solution.dto.OrderFormDto;
 import by.trubetski.quick.solution.models.Orders;
 import by.trubetski.quick.solution.repositories.DeliveryRepositories;
 import by.trubetski.quick.solution.repositories.ItemRepositories;
 import by.trubetski.quick.solution.repositories.OrderRepositories;
-import by.trubetski.quick.solution.repositories.UserRepositories;
 import by.trubetski.quick.solution.services.OrderServices;
 import by.trubetski.quick.solution.services.UserServices;
+import by.trubetski.quick.solution.services.ValidationServices;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 import java.util.Date;
 
 
 @Service
 @Transactional(readOnly = true)
 @Slf4j
+@RequiredArgsConstructor
 public class OrderServicesImpl implements OrderServices {
-    private final UserRepositories userRepositories;
+
     private final OrderRepositories orderRepositories;
     private final UserServices userServices;
     private final DeliveryRepositories deliveryRepositories;
     private final ItemRepositories itemRepositories;
-
-
-    @Autowired
-    public OrderServicesImpl(UserRepositories userRepositories, OrderRepositories orderRepositories,
-                             UserServices userServices, DeliveryRepositories deliveryRepositories, ItemRepositories itemRepositories) {
-        this.userRepositories = userRepositories;
-        this.orderRepositories = orderRepositories;
-        this.userServices = userServices;
-        this.deliveryRepositories = deliveryRepositories;
-        this.itemRepositories = itemRepositories;
-    }
+    private final ValidationServices validationServices;
 
     @Transactional
-    public void save(OrderForm entity) {
-        /**
-         * Getting the ID of the current user from the userService
-         */
+    public void save(OrderFormDto entity) {
+        BindingResult bindingResult = validationServices.validate(entity);
+        if (bindingResult.hasErrors()){
+            throw new ValidationException("error of validation");
+        }
+
         int id = userServices.getUserId();
 
-        /**
-         * Creating an Orders object and setting the necessary properties
-         */
         Orders orders = new Orders();
         orders.setDate(new Date());
         orders.setStatus("New");
         orders.setOwner(userServices.findById(id));
 
-        /**
-         * Creating a Delivery object and setting properties for the start and
-         * end addresses of the delivery
-         */
         Delivery delivery = new Delivery();
-        String startAddress = (entity.getStartCity() + " "
-                + entity.getStartStreet() + " "
-                + entity.getStartHouseNumber() + " "
-                + entity.getStartEntranceNumber() + " "
-                + entity.getStartFlatNumber());
+        String startAddress = ("City name: " + entity.getStartApartment().getCity() +
+                ", Street name: " + entity.getStartApartment().getStreet() +
+                ", House number: " + entity.getStartApartment().getHouseNumber() +
+                ", Entrance number: " + entity.getStartApartment().getEntranceNumber() +
+                ", Flat number: " + entity.getStartApartment().getFlatNumber());
         delivery.setStartAddress(startAddress);
-        String finishAddress = (entity.getFinishCity() + " "
-                + entity.getFinishStreet() + " "
-                + entity.getFinishHouseNumber() + " "
-                + entity.getFinishEntranceNumber() +" "
-                + entity.getFinishFlatNumber());
+        String finishAddress = ("City name: " + entity.getFinishApartment().getCity() +
+                ", Street name: " + entity.getFinishApartment().getStreet() +
+                ", House number: " + entity.getFinishApartment().getHouseNumber() +
+                ", Entrance number: " + entity.getFinishApartment().getEntranceNumber() +
+                ", Flat number: " + entity.getFinishApartment().getFlatNumber());
         delivery.setFinishAddress(finishAddress);
 
-        /**
-         * setting the coordinates for the start and end of the delivery
-         */
+        Double latitudeStart = entity.getStartApartment().getLat();
+        Double longitudeStart= entity.getStartApartment().getLng();
 
-        Double latitudeStart = entity.getStartLat();
-        Double longitudeStart= entity.getStartLng();
-
-        Double latitudeFinish = entity.getEndLat();
-        Double longitudeFinish = entity.getEndLng();
+        Double latitudeFinish = entity.getFinishApartment().getLat();
+        Double longitudeFinish = entity.getFinishApartment().getLng();
 
         GeometryFactory geometryFactory = new GeometryFactory();
         Point pointStart = geometryFactory.createPoint(new Coordinate(latitudeStart, longitudeStart));
         Point pointFinish = geometryFactory.createPoint(new Coordinate(latitudeFinish, longitudeFinish));
-        log.info(pointStart.toString());
-        log.info(pointFinish.toString());
+
         delivery.setCoordinatesStart(pointStart);
         delivery.setCoordinatesFinish(pointFinish);
 
-        /**
-         * Establish a connection between the order and delivery and
-         * save the Delivery object in the repository
-         */
         delivery.setOrders(orders);
         deliveryRepositories.save(delivery);
 
-        /**
-         * Establish links between the order and delivery and
-         * save the Orders object in the repository
-         */
         orders.setDelivery(delivery);
         orders.setDel(delivery);
         orderRepositories.save(orders);
 
-        /**
-         * An Item object is created and data about the type of delivery
-         * and order is placed in it
-         */
         Item item = new Item();
         item.setTypeOrder(entity.getOrderType());
         item.setTypeDelivery(entity.getDeliveryType());
