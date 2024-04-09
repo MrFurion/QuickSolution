@@ -22,8 +22,6 @@ public class AppUserDetailsServices implements UserDetailsService {
     @Autowired
     private UserRepositories userRepositories;
 
-
-
     /**
      * Load user details by username for authentication purposes.
      *

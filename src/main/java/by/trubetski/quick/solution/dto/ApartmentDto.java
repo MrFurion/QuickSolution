@@ -8,7 +8,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-
 public class ApartmentDto {
 
     @NotEmpty
@@ -32,5 +31,18 @@ public class ApartmentDto {
     private Double lng;
 
     public ApartmentDto() {
+    }
+
+    @Override
+    public String toString() {
+        return "ApartmentDto{" +
+                "city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", houseNumber='" + houseNumber + '\'' +
+                ", entranceNumber='" + entranceNumber + '\'' +
+                ", flatNumber='" + flatNumber + '\'' +
+                ", lat=" + lat +
+                ", lng=" + lng +
+                '}';
     }
 }

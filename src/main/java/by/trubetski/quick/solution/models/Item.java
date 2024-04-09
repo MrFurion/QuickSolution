@@ -18,4 +18,12 @@ public class Item {
     private String typeOrder;
     @Column(name = "type_delivery")
     private String typeDelivery;
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "typeOrder='" + typeOrder + '\'' +
+                ", typeDelivery='" + typeDelivery + '\'' +
+                '}';
+    }
 }

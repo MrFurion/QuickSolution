@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import java.util.Date;
 
-
 @Service
 @Transactional(readOnly = true)
 @Slf4j
@@ -35,8 +34,8 @@ public class OrderServicesImpl implements OrderServices {
     private final ValidationServices validationServices;
 
     @Transactional
-    public void save(OrderFormDto entity) {
-        BindingResult bindingResult = validationServices.validate(entity);
+    public void save(OrderFormDto orderFormDto) {
+        BindingResult bindingResult = validationServices.validate(orderFormDto);
         if (bindingResult.hasErrors()){
             throw new ValidationException("error of validation");
         }
@@ -49,24 +48,27 @@ public class OrderServicesImpl implements OrderServices {
         orders.setOwner(userServices.findById(id));
 
         Delivery delivery = new Delivery();
-        String startAddress = ("City name: " + entity.getStartApartment().getCity() +
-                ", Street name: " + entity.getStartApartment().getStreet() +
-                ", House number: " + entity.getStartApartment().getHouseNumber() +
-                ", Entrance number: " + entity.getStartApartment().getEntranceNumber() +
-                ", Flat number: " + entity.getStartApartment().getFlatNumber());
-        delivery.setStartAddress(startAddress);
-        String finishAddress = ("City name: " + entity.getFinishApartment().getCity() +
-                ", Street name: " + entity.getFinishApartment().getStreet() +
-                ", House number: " + entity.getFinishApartment().getHouseNumber() +
-                ", Entrance number: " + entity.getFinishApartment().getEntranceNumber() +
-                ", Flat number: " + entity.getFinishApartment().getFlatNumber());
-        delivery.setFinishAddress(finishAddress);
+        StringBuffer startAddressBuffer = new StringBuffer();
+        startAddressBuffer.append(orderFormDto.getStartApartment().getCity())
+                .append(" ").append(orderFormDto.getStartApartment().getStreet())
+                .append(" ").append(orderFormDto.getStartApartment().getHouseNumber())
+                .append(" ").append(orderFormDto.getStartApartment().getEntranceNumber())
+                .append(" ").append(orderFormDto.getStartApartment().getFlatNumber());
+        delivery.setStartAddress(startAddressBuffer.toString());
+        StringBuffer finishAddressBuffer = new StringBuffer();
+        finishAddressBuffer.append(orderFormDto.getFinishApartment().getCity())
+                .append(" ").append(orderFormDto.getFinishApartment().getStreet())
+                .append(" ").append(orderFormDto.getFinishApartment().getHouseNumber())
+                .append(" ").append(orderFormDto.getFinishApartment().getEntranceNumber())
+                .append(" ").append(orderFormDto.getFinishApartment().getFlatNumber());
+        delivery.setFinishAddress(finishAddressBuffer.toString());
 
-        Double latitudeStart = entity.getStartApartment().getLat();
-        Double longitudeStart= entity.getStartApartment().getLng();
 
-        Double latitudeFinish = entity.getFinishApartment().getLat();
-        Double longitudeFinish = entity.getFinishApartment().getLng();
+        Double latitudeStart = orderFormDto.getStartApartment().getLat();
+        Double longitudeStart= orderFormDto.getStartApartment().getLng();
+
+        Double latitudeFinish = orderFormDto.getFinishApartment().getLat();
+        Double longitudeFinish = orderFormDto.getFinishApartment().getLng();
 
         GeometryFactory geometryFactory = new GeometryFactory();
         Point pointStart = geometryFactory.createPoint(new Coordinate(latitudeStart, longitudeStart));
@@ -83,8 +85,8 @@ public class OrderServicesImpl implements OrderServices {
         orderRepositories.save(orders);
 
         Item item = new Item();
-        item.setTypeOrder(entity.getOrderType());
-        item.setTypeDelivery(entity.getDeliveryType());
+        item.setTypeOrder(orderFormDto.getOrderType());
+        item.setTypeDelivery(orderFormDto.getDeliveryType());
         item.setOrders(orders);
         itemRepositories.save(item);
     }
