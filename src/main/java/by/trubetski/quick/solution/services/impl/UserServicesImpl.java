@@ -20,6 +20,12 @@ import java.util.Optional;
 public class UserServicesImpl implements UserServices{
     private final UserRepositories userRepositories;
 
+    /**
+     * {@inheritDoc}
+     * Search for orders of an authenticated user by the received identifier.
+     *
+     * @return a list of all orders for the user.
+     */
     @Override
     public List<Orders> userOrder(){
         int userId = getUserId();
@@ -32,6 +38,14 @@ public class UserServicesImpl implements UserServices{
             return Collections.emptyList();
         }
     }
+
+    /**
+     * {@inheritDoc}
+     * SecurityContext from Spring Security is used.
+     * AppUserDetail is also used, which is a wrapper for the User object.
+     *
+     * @return The user ID as an int.
+     */
     @Override
     @Transactional
     public int  getUserId(){
@@ -40,6 +54,13 @@ public class UserServicesImpl implements UserServices{
         return appUsersDetails.getUser().getId();
     }
 
+    /**
+     * {@inheritDoc}
+     * The received indication number is used.
+     *
+     * @param id
+     * @return User by id
+     */
     public User findById(int id) {
         Optional<User> user = userRepositories.findById(id);
         return user.orElse(null);

@@ -5,9 +5,11 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
+@ToString
 public class ApartmentDto {
 
     @NotEmpty
@@ -31,18 +33,5 @@ public class ApartmentDto {
     private Double lng;
 
     public ApartmentDto() {
-    }
-
-    @Override
-    public String toString() {
-        return "ApartmentDto{" +
-                "city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", houseNumber='" + houseNumber + '\'' +
-                ", entranceNumber='" + entranceNumber + '\'' +
-                ", flatNumber='" + flatNumber + '\'' +
-                ", lat=" + lat +
-                ", lng=" + lng +
-                '}';
     }
 }

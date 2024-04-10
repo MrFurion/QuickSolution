@@ -23,6 +23,14 @@ public class RegistrationServicesImpl implements RegistrationServices {
     private final UserRepositories userRepositories;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * {@inheritDoc}
+     * Check for duplicate email and name in the database. Additionally,
+     * it hashes the password and saves it when all user conditions are met for storing in the database.
+     * Also add roles user.
+     *
+     * @param user The User entity to be created.
+     */
     @Override
     @Transactional
     public void createUser(User user) {

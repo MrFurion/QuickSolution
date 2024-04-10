@@ -6,7 +6,7 @@ let directionsRenderer;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 53.9022, lng: 27.5619},
+        center: { lat: 53.9022, lng: 27.5619 },
         zoom: 8
     });
 
@@ -14,7 +14,7 @@ function initMap() {
     directionsRenderer = new google.maps.DirectionsRenderer();
     directionsRenderer.setMap(map);
 
-    map.addListener('click', function (event) {
+    map.addListener('click', function(event) {
         if (!startMarker) {
             startMarker = new google.maps.Marker({
                 position: event.latLng,
@@ -23,7 +23,7 @@ function initMap() {
                 draggable: true
             });
 
-            startMarker.addListener('dragend', function (event) {
+            startMarker.addListener('dragend', function(event) {
                 calculateAndDisplayRoute();
                 sendCoordinatesToServer();
             });
@@ -35,14 +35,14 @@ function initMap() {
                 draggable: true
             });
 
-            endMarker.addListener('dragend', function (event) {
+            endMarker.addListener('dragend', function(event) {
                 calculateAndDisplayRoute();
                 sendCoordinatesToServer();
             });
         } else {
             startMarker.setMap(null);
             endMarker.setMap(null);
-            directionsRenderer.setDirections({routes: []});
+            directionsRenderer.setDirections({ routes: [] });
 
             startMarker = new google.maps.Marker({
                 position: event.latLng,
@@ -51,7 +51,7 @@ function initMap() {
                 draggable: true
             });
 
-            startMarker.addListener('dragend', function (event) {
+            startMarker.addListener('dragend', function(event) {
                 calculateAndDisplayRoute();
                 sendCoordinatesToServer();
             });
@@ -82,7 +82,7 @@ function calculateAndDisplayRoute() {
                 destination: end,
                 travelMode: 'DRIVING'
             },
-            function (response, status) {
+            function(response, status) {
                 if (status === 'OK') {
                     directionsRenderer.setDirections(response);
                 } else {
@@ -94,10 +94,10 @@ function calculateAndDisplayRoute() {
 }
 
 function sendCoordinatesToServer() {
-
     if (startMarker && endMarker) {
         const startCoordinates = startMarker.getPosition();
         const endCoordinates = endMarker.getPosition();
+
         const url = '/saveCoordinates';
         const data = {
             "startApartment": {
@@ -131,8 +131,7 @@ function sendCoordinatesToServer() {
             });
     }
 }
-
-window.onload = function () {
+window.onload = function() {
     setDefaultValues();
 };
 
@@ -142,12 +141,10 @@ function setDefaultValues() {
     document.getElementById("finishEntranceNumber").value = "not available";
     document.getElementById("finishFlatNumber").value = "not available";
 }
-
 function toggleMoreData() {
     var moreData = document.getElementById("moreData");
     if (moreData.style.display === "none") {
         moreData.style.display = "block";
-        // Проверяем, были ли введены пользователем значения, и если нет, то устанавливаем дефолтные
         var startEntrance = document.getElementById("startEntrance").value;
         var startFlat = document.getElementById("startFlat").value;
         if (startEntrance === "") {
@@ -164,6 +161,7 @@ function toggleMoreData() {
 function toggleFinishMoreData() {
     var moreDataElement = document.getElementById("moreDataFinish");
     if (moreDataElement.style.display === "none") {
+        moreDataElement.style.display = "block";
         var finishEntrance = document.getElementById("finishEntranceNumber").value;
         var finishFlat = document.getElementById("finishFlatNumber").value;
         if (finishEntrance === "") {

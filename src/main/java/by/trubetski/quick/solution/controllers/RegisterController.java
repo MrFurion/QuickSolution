@@ -36,9 +36,8 @@ public class RegisterController {
         userValidator.validate(user, bindingResult);
 
         if (bindingResult.hasErrors()){
-            log.info("Validation errors occurred while processing user registration:");
             for (ObjectError error : bindingResult.getAllErrors()) {
-                log.info("- " + error.getDefaultMessage());
+                log.error("Validation errors occurred while processing user registration: - " + error.getDefaultMessage());
             }
             return "auth/registration";
         }

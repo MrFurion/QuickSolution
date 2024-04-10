@@ -8,10 +8,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MvcConfig implements WebMvcConfigurer {
 
     /**
-     * This method is used to define resource handlers in the application.
-     * It is used to determine the location of static resources (such as CSS files, JavaScript, images, etc.)
-     * and the corresponding URLs through which they are accessible.
-     * In this case, it is necessary for the correct operation with the Thymeleaf templating engine.
+     * Defines the resource handler in the application.
+     * Determines the locations of static resources (such as CSS files, JavaScript, images, etc.)
+     * and the corresponding URLs where they are available.
+     * In this case, this is necessary to work correctly with the Thymeleaf template creation mechanism.
+     *
      * @param registry
      */
     @Override

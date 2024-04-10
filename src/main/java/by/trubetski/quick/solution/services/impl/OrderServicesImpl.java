@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -48,21 +49,9 @@ public class OrderServicesImpl implements OrderServices {
         orders.setOwner(userServices.findById(id));
 
         Delivery delivery = new Delivery();
-        StringBuffer startAddressBuffer = new StringBuffer();
-        startAddressBuffer.append(orderFormDto.getStartApartment().getCity())
-                .append(" ").append(orderFormDto.getStartApartment().getStreet())
-                .append(" ").append(orderFormDto.getStartApartment().getHouseNumber())
-                .append(" ").append(orderFormDto.getStartApartment().getEntranceNumber())
-                .append(" ").append(orderFormDto.getStartApartment().getFlatNumber());
-        delivery.setStartAddress(startAddressBuffer.toString());
-        StringBuffer finishAddressBuffer = new StringBuffer();
-        finishAddressBuffer.append(orderFormDto.getFinishApartment().getCity())
-                .append(" ").append(orderFormDto.getFinishApartment().getStreet())
-                .append(" ").append(orderFormDto.getFinishApartment().getHouseNumber())
-                .append(" ").append(orderFormDto.getFinishApartment().getEntranceNumber())
-                .append(" ").append(orderFormDto.getFinishApartment().getFlatNumber());
-        delivery.setFinishAddress(finishAddressBuffer.toString());
 
+        delivery.setStartAddress(orderFormDto.getStartApartment().toString());
+        delivery.setFinishAddress(orderFormDto.getFinishApartment().toString());
 
         Double latitudeStart = orderFormDto.getStartApartment().getLat();
         Double longitudeStart= orderFormDto.getStartApartment().getLng();
@@ -89,5 +78,9 @@ public class OrderServicesImpl implements OrderServices {
         item.setTypeDelivery(orderFormDto.getDeliveryType());
         item.setOrders(orders);
         itemRepositories.save(item);
+    }
+    public Optional<Orders> orderById(int id){
+        return orderRepositories.findById(id);
+
     }
 }

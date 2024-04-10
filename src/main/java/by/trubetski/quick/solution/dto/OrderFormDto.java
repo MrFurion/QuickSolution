@@ -3,6 +3,7 @@ package by.trubetski.quick.solution.dto;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
@@ -16,15 +17,5 @@ public class OrderFormDto {
     private ApartmentDto finishApartment;
 
     public OrderFormDto() {
-    }
-
-    @Override
-    public String toString() {
-        return "OrderFormDto{" +
-                "deliveryType='" + deliveryType + '\'' +
-                ", orderType='" + orderType + '\'' +
-                ", startApartment=" + startApartment +
-                ", finishApartment=" + finishApartment +
-                '}';
     }
 }

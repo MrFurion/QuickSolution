@@ -10,3 +10,4 @@ public class PasswordEncoderExample {
         System.out.println(hashedPassword);
     }
 }
+
