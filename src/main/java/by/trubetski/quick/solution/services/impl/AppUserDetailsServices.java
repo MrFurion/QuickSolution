@@ -12,16 +12,15 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 /**
- * This class performs the function of loading user information from the database based on their username,
+ * Downloads user information from the database based on their username,
  * allowing Spring Security to use this information in the authentication process.
  */
 @Service
 @Slf4j
 public class AppUserDetailsServices implements UserDetailsService {
+
     @Autowired
     private UserRepositories userRepositories;
-
-
 
     /**
      * Load user details by username for authentication purposes.

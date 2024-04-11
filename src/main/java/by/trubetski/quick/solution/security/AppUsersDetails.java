@@ -3,11 +3,10 @@ package by.trubetski.quick.solution.security;
 import by.trubetski.quick.solution.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 
 /**
- * This class is used to wrap the User object into an object that adheres to the UserDetails interface,
+ * Converts the User object into an object that adheres to the UserDetails interface,
  * providing the necessary information for authentication and authorization in Spring Security.
  */
 public class AppUsersDetails implements UserDetails {

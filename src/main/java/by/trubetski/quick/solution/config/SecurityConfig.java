@@ -1,6 +1,5 @@
 package by.trubetski.quick.solution.config;
 
-
 import by.trubetski.quick.solution.services.impl.AppUserDetailsServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -15,17 +14,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-
-/**
- *
- */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
     /**
-     * This method provides the UserDetailsService bean,
+     * Provides the UserDetailsService bean,
      * which can be used by Spring Security to process authentication
      * and authorization requests based information obout user.
      * return your "UserDetailsService".
@@ -38,11 +33,10 @@ public class SecurityConfig {
     }
 
 
-
     /**
-     * -This method basic settings configuration Spring Security for input form entries,
+     * Configuration Spring Security for input form entries,
      * determination the rules authorization and indicate URL for successful and fail authentication.
-     * -Method accept and return param HttpSecurity object
+     * Method accept and return param HttpSecurity object
      * which provides opportunity to configure settings security.
      *
      * @param http the HttpSecurity object for configuring security settings.
@@ -66,7 +60,7 @@ public class SecurityConfig {
     }
 
     /**
-     *This method create and settings "AuthenticationManager" which used "DaoAuthenticationProvider"
+     * Create and settings "AuthenticationManager" which used "DaoAuthenticationProvider"
      * for authentication users where:
      * appUserDetailsServices provides information about users
      * getPasswordEncoder used for verification password on database.
@@ -83,7 +77,7 @@ public class SecurityConfig {
     }
 
     /**
-     *This method provides "PasswordEncoder" with used algorithm BCrypt for is hashing password.
+     * Provides "PasswordEncoder" with used algorithm BCrypt for is hashing password.
      * @return the {@link BCryptPasswordEncoder} instance for password hashing
      */
     @Bean

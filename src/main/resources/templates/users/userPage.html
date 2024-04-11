@@ -2,10 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>HelloUser</title>
+    <title>Hello User</title>
 </head>
 <body>
 <a href="/order">Create new order</a>
+<br>
+<br>
+<div th:if="${successMessage}" class="success-message">
+    <p th:text="${successMessage}"></p>
+</div>
 <br>
 <div th:if="${orders.isEmpty()}">
     <p style="color: red">you currently do not have any orders</p>
@@ -17,9 +22,12 @@
     <p style="color: blue">You have orders :</p>
     <br/>
     <table th:each="order : ${orders}">
-        <tr style="color: chocolate">
-        <td th:text="${'Order : ' + order.getDate()+'. ' + order.delivery.getCoordinatesStart() + ' '}"></td>
-        <td th:text="${'Registered time : ' + #dates.format(order.getDate(), 'yyyy-MM-dd HH:mm')}"></td>
+        <tr>
+            <td>
+                <a th:href="@{/order/{id}(id=${order.getId()})}"
+                   th:text="${'Registered time : ' + #dates.format(order.getDate(), 'yyyy-MM-dd HH:mm')}"
+                   style="color: chocolate"></a>
+            </td>
         </tr>
     </table>
 </div>

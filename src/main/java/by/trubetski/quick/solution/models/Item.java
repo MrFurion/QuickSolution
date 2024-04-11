@@ -4,20 +4,26 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-
 @Data
+@Table(name = "item")
 public class Item {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     @OneToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Orders orders;
-
     @Column(name = "type_orders")
     private String typeOrder;
     @Column(name = "type_delivery")
     private String typeDelivery;
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "typeOrder='" + typeOrder + '\'' +
+                ", typeDelivery='" + typeDelivery + '\'' +
+                '}';
+    }
 }

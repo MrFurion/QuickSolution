@@ -1,6 +1,6 @@
-package by.trubetski.quick.solution;
+package by.trubetski.quick.solution.controllers;
 
-
+import lombok.Data;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -10,9 +10,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-
 @SpringBootTest
 @AutoConfigureMockMvc
+@Data
 public class AuthenticationTest {
     @Autowired
     private MockMvc mockMvc;
@@ -28,10 +28,10 @@ public class AuthenticationTest {
     public void testLoginSuccess() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/process_login")
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
-                        .param("username", "kotn")
+                        .param("username", "test_1")
                         .param("password", "4444"))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/hello")); // Поменяйте на вашу целевую страницу
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/user"));
     }
 
     @Test

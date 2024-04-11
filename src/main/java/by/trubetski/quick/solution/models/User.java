@@ -5,10 +5,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.hibernate.annotations.Type;
-
-import java.io.Serializable;
-import java.lang.annotation.ElementType;
 import java.util.List;
 
 @Entity
@@ -19,31 +15,23 @@ public class User {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     @Column(name = "name")
     @NotEmpty(message = "Name should be not empty")
     @Size(min = 4, max = 30, message = "Name should be between 4 and 30 character")
     private String username;
-
     @Column(name = "email")
     @Email(message = "Please write a correct email, for example mrsmith@email.com")
     @NotEmpty(message = "Email should be not empty")
     private String email;
-
     @Column(name = "password")
     @NotEmpty(message = "Password should be not empty")
     private String password;
-
     @Column(name = "type")
     private String type;
     @OneToMany(mappedBy = "owner")
-
     private List<Orders> orders;
-
     @OneToOne(mappedBy = "users")
     private CourierInf courierInf;
-
-
 
     public User() {
     }

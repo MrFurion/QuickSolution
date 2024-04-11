@@ -15,6 +15,7 @@ You can start application locally
    ```
    http://localhost:8080/
    ```
+6.  You can use login test_1 or test_2 and password 4444 for authentication.
     
 #### Stop the application:
 1. Stop Spring Boot application locally with spring profile local.
