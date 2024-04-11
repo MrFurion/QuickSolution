@@ -21,6 +21,6 @@ public class CreateOrderTest {
         mockMvc.perform(
                         MockMvcRequestBuilders.get("/order"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("orders/pageOrder"));
+                .andExpect(MockMvcResultMatchers.view().name("orders/createOrder"));
     }
 }

@@ -84,7 +84,7 @@ public class OrderControllerTest {
                         .param("finishApartment.lat", "53.9023")
                         .param("finishApartment.lng", "27.5619"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("orders/pageOrder"))
+                .andExpect(MockMvcResultMatchers.view().name("orders/createOrder"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("error"));
     }
 }

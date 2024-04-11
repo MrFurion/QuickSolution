@@ -79,8 +79,16 @@ public class OrderServicesImpl implements OrderServices {
         item.setOrders(orders);
         itemRepositories.save(item);
     }
+
+    /**
+     * {@inheritDoc}
+     * Allows retrieving an order by its ID from the order repository,
+     * ensuring safe handling in case the order with the specified ID is not present.
+     *
+     * @param id
+     * @return Optional<Orders>
+     */
     public Optional<Orders> orderById(int id){
         return orderRepositories.findById(id);
-
     }
 }
