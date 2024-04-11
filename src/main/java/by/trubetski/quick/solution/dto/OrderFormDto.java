@@ -1,9 +1,12 @@
 package by.trubetski.quick.solution.dto;
 
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@AllArgsConstructor
 public class OrderFormDto {
 
     private String deliveryType;
@@ -14,12 +17,5 @@ public class OrderFormDto {
     private ApartmentDto finishApartment;
 
     public OrderFormDto() {
-    }
-
-    public OrderFormDto(String deliveryType, String orderType, ApartmentDto startApartment, ApartmentDto finishApartment) {
-        this.deliveryType = deliveryType;
-        this.orderType = orderType;
-        this.startApartment = startApartment;
-        this.finishApartment = finishApartment;
     }
 }

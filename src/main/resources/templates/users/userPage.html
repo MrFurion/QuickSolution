@@ -22,9 +22,12 @@
     <p style="color: blue">You have orders :</p>
     <br/>
     <table th:each="order : ${orders}">
-        <tr style="color: chocolate">
-        <td th:text="${'Order : ' + order.getDate()+'. ' + order.delivery.getCoordinatesStart() + ' '}"></td>
-        <td th:text="${'Registered time : ' + #dates.format(order.getDate(), 'yyyy-MM-dd HH:mm')}"></td>
+        <tr>
+            <td>
+                <a th:href="@{/order/{id}(id=${order.getId()})}"
+                   th:text="${'Registered time : ' + #dates.format(order.getDate(), 'yyyy-MM-dd HH:mm')}"
+                   style="color: chocolate"></a>
+            </td>
         </tr>
     </table>
 </div>

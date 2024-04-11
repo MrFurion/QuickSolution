@@ -14,6 +14,4 @@ public interface UserRepositories extends JpaRepository<User, Integer> {
 
     @Nullable
     Optional<User> findByEmail(String email);
-
-
 }

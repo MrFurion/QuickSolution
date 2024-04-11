@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import java.util.Date;
-
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -35,8 +35,8 @@ public class OrderServicesImpl implements OrderServices {
     private final ValidationServices validationServices;
 
     @Transactional
-    public void save(OrderFormDto entity) {
-        BindingResult bindingResult = validationServices.validate(entity);
+    public void save(OrderFormDto orderFormDto) {
+        BindingResult bindingResult = validationServices.validate(orderFormDto);
         if (bindingResult.hasErrors()){
             throw new ValidationException("error of validation");
         }
@@ -49,24 +49,15 @@ public class OrderServicesImpl implements OrderServices {
         orders.setOwner(userServices.findById(id));
 
         Delivery delivery = new Delivery();
-        String startAddress = ("City name: " + entity.getStartApartment().getCity() +
-                ", Street name: " + entity.getStartApartment().getStreet() +
-                ", House number: " + entity.getStartApartment().getHouseNumber() +
-                ", Entrance number: " + entity.getStartApartment().getEntranceNumber() +
-                ", Flat number: " + entity.getStartApartment().getFlatNumber());
-        delivery.setStartAddress(startAddress);
-        String finishAddress = ("City name: " + entity.getFinishApartment().getCity() +
-                ", Street name: " + entity.getFinishApartment().getStreet() +
-                ", House number: " + entity.getFinishApartment().getHouseNumber() +
-                ", Entrance number: " + entity.getFinishApartment().getEntranceNumber() +
-                ", Flat number: " + entity.getFinishApartment().getFlatNumber());
-        delivery.setFinishAddress(finishAddress);
 
-        Double latitudeStart = entity.getStartApartment().getLat();
-        Double longitudeStart= entity.getStartApartment().getLng();
+        delivery.setStartAddress(orderFormDto.getStartApartment().toString());
+        delivery.setFinishAddress(orderFormDto.getFinishApartment().toString());
 
-        Double latitudeFinish = entity.getFinishApartment().getLat();
-        Double longitudeFinish = entity.getFinishApartment().getLng();
+        Double latitudeStart = orderFormDto.getStartApartment().getLat();
+        Double longitudeStart= orderFormDto.getStartApartment().getLng();
+
+        Double latitudeFinish = orderFormDto.getFinishApartment().getLat();
+        Double longitudeFinish = orderFormDto.getFinishApartment().getLng();
 
         GeometryFactory geometryFactory = new GeometryFactory();
         Point pointStart = geometryFactory.createPoint(new Coordinate(latitudeStart, longitudeStart));
@@ -83,9 +74,13 @@ public class OrderServicesImpl implements OrderServices {
         orderRepositories.save(orders);
 
         Item item = new Item();
-        item.setTypeOrder(entity.getOrderType());
-        item.setTypeDelivery(entity.getDeliveryType());
+        item.setTypeOrder(orderFormDto.getOrderType());
+        item.setTypeDelivery(orderFormDto.getDeliveryType());
         item.setOrders(orders);
         itemRepositories.save(item);
+    }
+    public Optional<Orders> orderById(int id){
+        return orderRepositories.findById(id);
+
     }
 }

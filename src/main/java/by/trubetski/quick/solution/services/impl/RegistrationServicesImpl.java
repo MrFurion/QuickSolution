@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 import java.util.Optional;
 
-
 @Service
 @Transactional(readOnly = true)
 @Slf4j
@@ -25,7 +24,8 @@ public class RegistrationServicesImpl implements RegistrationServices {
     private final PasswordEncoder passwordEncoder;
 
     /**
-     *The method will check for the absence of duplicate email and name in the database. Additionally,
+     * {@inheritDoc}
+     * Check for duplicate email and name in the database. Additionally,
      * it hashes the password and saves it when all user conditions are met for storing in the database.
      * Also add roles user.
      *

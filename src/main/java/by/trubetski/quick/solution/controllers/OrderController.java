@@ -40,4 +40,9 @@ public class OrderController {
              return "orders/pageOrder";
          }
     }
+    @GetMapping("/{id}")
+    public String show(@PathVariable("id") int id, Model model) {
+        model.addAttribute("order", orderServices.orderById(id));
+        return "orders/showOrder";
+    }
 }

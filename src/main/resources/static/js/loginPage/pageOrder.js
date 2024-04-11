@@ -6,22 +6,21 @@ let directionsRenderer;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: 53.9022, lng: 27.5619 }, // Координаты Минска или другого центрального города Беларуси
-        zoom: 8 // Масштаб карты
+        center: { lat: 53.9022, lng: 27.5619 },
+        zoom: 8
     });
 
     directionsService = new google.maps.DirectionsService();
     directionsRenderer = new google.maps.DirectionsRenderer();
     directionsRenderer.setMap(map);
 
-    // Обработчик клика по карте для добавления маркера
     map.addListener('click', function(event) {
         if (!startMarker) {
             startMarker = new google.maps.Marker({
                 position: event.latLng,
                 map: map,
-                label: 'A', // Метка начальной точки
-                draggable: true // Разрешить перетаскивание маркера
+                label: 'A',
+                draggable: true
             });
 
             startMarker.addListener('dragend', function(event) {
@@ -32,8 +31,8 @@ function initMap() {
             endMarker = new google.maps.Marker({
                 position: event.latLng,
                 map: map,
-                label: 'B', // Метка конечной точки
-                draggable: true // Разрешить перетаскивание маркера
+                label: 'B',
+                draggable: true
             });
 
             endMarker.addListener('dragend', function(event) {
@@ -41,12 +40,10 @@ function initMap() {
                 sendCoordinatesToServer();
             });
         } else {
-            // Удаляем существующие маркеры и маршрут при клике на новом месте
             startMarker.setMap(null);
             endMarker.setMap(null);
             directionsRenderer.setDirections({ routes: [] });
 
-            // Создаем новые маркеры на новом месте
             startMarker = new google.maps.Marker({
                 position: event.latLng,
                 map: map,
@@ -74,7 +71,6 @@ function calculateAndDisplayRoute() {
         const start = startMarker.getPosition();
         const end = endMarker.getPosition();
 
-        // Заполняем скрытые поля координатами
         document.getElementById("startLat").value = start.lat();
         document.getElementById("startLng").value = start.lng();
         document.getElementById("endLat").value = end.lat();
@@ -98,13 +94,10 @@ function calculateAndDisplayRoute() {
 }
 
 function sendCoordinatesToServer() {
-    // Здесь вы можете отправить координаты начальной и конечной точек на ваш сервер для обработки
     if (startMarker && endMarker) {
         const startCoordinates = startMarker.getPosition();
         const endCoordinates = endMarker.getPosition();
 
-        // Пример отправки данных на сервер с использованием AJAX запроса
-        // Замените URL на URL вашего сервера и обработчика данных
         const url = '/saveCoordinates';
         const data = {
             "startApartment": {
@@ -117,7 +110,6 @@ function sendCoordinatesToServer() {
             }
         };
 
-        // Отправляем данные на сервер
         fetch(url, {
             method: 'POST',
             headers: {
@@ -132,7 +124,6 @@ function sendCoordinatesToServer() {
                 return response.json();
             })
             .then(data => {
-                // Обработка ответа сервера (если необходимо)
                 console.log('Данные успешно отправлены на сервер:', data);
             })
             .catch(error => {
@@ -154,7 +145,6 @@ function toggleMoreData() {
     var moreData = document.getElementById("moreData");
     if (moreData.style.display === "none") {
         moreData.style.display = "block";
-        // Проверяем, были ли введены пользователем значения, и если нет, то устанавливаем дефолтные
         var startEntrance = document.getElementById("startEntrance").value;
         var startFlat = document.getElementById("startFlat").value;
         if (startEntrance === "") {
@@ -172,7 +162,6 @@ function toggleFinishMoreData() {
     var moreDataElement = document.getElementById("moreDataFinish");
     if (moreDataElement.style.display === "none") {
         moreDataElement.style.display = "block";
-        // Проверяем, были ли введены пользователем значения, и если нет, то устанавливаем дефолтные
         var finishEntrance = document.getElementById("finishEntranceNumber").value;
         var finishFlat = document.getElementById("finishFlatNumber").value;
         if (finishEntrance === "") {
