@@ -23,7 +23,7 @@ public class OrderController {
     @GetMapping
     public String pageOrder(Model model) {
         model.addAttribute("orders", new OrderFormDto());
-        return "orders/pageOrder";
+        return "orders/createOrder";
     }
 
     @PostMapping("/create")
@@ -37,11 +37,12 @@ public class OrderController {
          } catch (ValidationException e){
              model.addAttribute("error", bindingResult.getAllErrors());
              log.error(bindingResult.toString());
-             return "orders/pageOrder";
+             return "orders/createOrder";
          }
     }
+
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
+    public String showOrder(@PathVariable("id") int id, Model model) {
         model.addAttribute("order", orderServices.orderById(id));
         return "orders/showOrder";
     }

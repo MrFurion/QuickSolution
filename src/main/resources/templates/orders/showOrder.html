@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Your order</title>
 </head>
 <body>
-
+<h1>Detailed information about the order</h1>
+<br>
+<h2>Your start address</h2>
+<br>
+<p th:text="${order.get().getDelivery().getStartAddress()}"></p>
+<br>
+<h2>Your finish address</h2>
+<br>
+<p th:text="${order.get().getDelivery().getFinishAddress()}"></p>
+<br>
+<h2>Time registration of order</h2>
+<br>
+<p th:text="${order.get().getDate()}"></p>
+<br>
+<h3>Status order</h3>
+<br>
+<p th:text="${order.get().getStatus()}"></p>
 </body>
 </html>
