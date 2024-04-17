@@ -13,10 +13,15 @@ public interface UserServices {
     /**
      * Get the user's registration number.
      */
-    public int  getUserId();
+    int  getUserId();
 
     /**
      *Find a user by id.
      */
-    public User findById(int id);
+    User findById(int id);
+
+    /**
+     *Find all User
+     */
+    List<User> findAllCourier();
 }

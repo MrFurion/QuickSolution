@@ -11,6 +11,7 @@ import by.trubetski.quick.solution.repositories.OrderRepositories;
 import by.trubetski.quick.solution.services.OrderServices;
 import by.trubetski.quick.solution.services.UserServices;
 import by.trubetski.quick.solution.services.ValidationServices;
+import by.trubetski.quick.solution.util.enums.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.locationtech.jts.geom.Coordinate;
@@ -34,6 +35,11 @@ public class OrderServicesImpl implements OrderServices {
     private final ItemRepositories itemRepositories;
     private final ValidationServices validationServices;
 
+    /**
+     * {@inheritDoc}
+     * Use and extract data from OrderFormDto. It also validates the received data.
+     * @param orderFormDto
+     */
     @Transactional
     public void save(OrderFormDto orderFormDto) {
         BindingResult bindingResult = validationServices.validate(orderFormDto);
@@ -45,7 +51,7 @@ public class OrderServicesImpl implements OrderServices {
 
         Orders orders = new Orders();
         orders.setDate(new Date());
-        orders.setStatus("New");
+        orders.setStatus(OrderStatus.STATUS_NEW.getStatusName());
         orders.setOwner(userServices.findById(id));
 
         Delivery delivery = new Delivery();
@@ -90,5 +96,15 @@ public class OrderServicesImpl implements OrderServices {
      */
     public Optional<Orders> orderById(int id){
         return orderRepositories.findById(id);
+    }
+
+    /**
+     * {@inheritDoc}
+     * Allows you to change an order by its ID. It also validates the received data.
+     * @param id
+     * @param orderFormDto
+     */
+    @Override
+    public void update(int id, OrderFormDto orderFormDto) {
     }
 }

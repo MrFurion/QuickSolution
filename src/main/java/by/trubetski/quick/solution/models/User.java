@@ -26,8 +26,8 @@ public class User {
     @Column(name = "password")
     @NotEmpty(message = "Password should be not empty")
     private String password;
-    @Column(name = "type")
-    private String type;
+    @Column(name = "role")
+    private String role;
     @OneToMany(mappedBy = "owner")
     private List<Orders> orders;
     @OneToOne(mappedBy = "users")

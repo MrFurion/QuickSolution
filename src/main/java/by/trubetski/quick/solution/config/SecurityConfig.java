@@ -1,6 +1,7 @@
 package by.trubetski.quick.solution.config;
 
 import by.trubetski.quick.solution.services.impl.AppUserDetailsServices;
+import by.trubetski.quick.solution.util.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,15 +10,19 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.util.Set;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+    public static final String AUTH_LOGIN = "/auth/login";
 
     /**
      * Provides the UserDetailsService bean,
@@ -46,16 +51,26 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .formLogin(form-> form
-                        .loginPage("/auth/login").permitAll()
+                        .loginPage(AUTH_LOGIN).permitAll()
                         .loginProcessingUrl("/process_login")
-                        .defaultSuccessUrl("/user", true)
+                        .successHandler(((request, response, authentication) -> {
+                            Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+                            if (roles.contains(Role.ROLE_ADMIN.getRoleName())) {
+                                response.sendRedirect("/admin");
+                            } else if (roles.contains(Role.ROLE_USER.getRoleName())) {
+                                response.sendRedirect("/user");
+                            } else if (roles.contains(Role.ROLE_COURIER.getRoleName())) {
+                                response.sendRedirect("/courier");
+                            }
+                        }))
                         .failureUrl("/auth/login?error=true"))
                 .authorizeHttpRequests(auth-> auth
-                        .requestMatchers("/auth/login", "/error", "/register","/logout",
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers(AUTH_LOGIN, "/error", "/register","/logout",
                                 "/static/css/**").permitAll()
                         .anyRequest().authenticated())
-                .logout((logout)-> logout
-                        .logoutSuccessUrl("/auth/login"))
+                .logout(logout-> logout
+                        .logoutSuccessUrl(AUTH_LOGIN))
                 .build();
     }
 

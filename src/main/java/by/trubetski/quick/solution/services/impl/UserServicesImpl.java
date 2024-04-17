@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 @Service
 @Transactional(readOnly = true)
@@ -28,8 +29,7 @@ public class UserServicesImpl implements UserServices{
      */
     @Override
     public List<Orders> userOrder(){
-        int userId = getUserId();
-        Optional<User> user = userRepositories.findById(userId);
+        Optional<User> user = userRepositories.findById(getUserId());
 
         if (user.isPresent()){
             return user.get().getOrders();
@@ -47,7 +47,6 @@ public class UserServicesImpl implements UserServices{
      * @return The user ID as an int.
      */
     @Override
-    @Transactional
     public int  getUserId(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AppUsersDetails appUsersDetails = (AppUsersDetails) authentication.getPrincipal();
@@ -66,17 +65,14 @@ public class UserServicesImpl implements UserServices{
         return user.orElse(null);
     }
 
-    public List<User> findAll() {
-        return userRepositories.findAll();
+    public List<User> findAllCourier() {
+        return StreamSupport.stream(userRepositories.findAll().spliterator(), false)
+                .filter(user -> "ROLE_COURIER".equals(user.getRole()))
+                .toList();
     }
 
     public void save(User user) {
         userRepositories.save(user);
     }
 
-    public void update(User user) {
-    }
-
-    public void delete(int id) {
-    }
 }

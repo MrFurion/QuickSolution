@@ -2,14 +2,21 @@ package by.trubetski.quick.solution.services;
 
 import by.trubetski.quick.solution.dto.OrderFormDto;
 import by.trubetski.quick.solution.models.Orders;
-
 import java.util.Optional;
 
 public interface OrderServices {
-    public void save(OrderFormDto entity);
+    /**
+     * Save order.
+     */
+    void save(OrderFormDto orderFormDto);
 
     /**
-     *Find order.
+     * Find order by id.
      */
-    public Optional<Orders> orderById(int id);
+    Optional<Orders> orderById(int id);
+
+    /**
+     * Update order by id.
+     */
+    void update(int id, OrderFormDto orderFormDto);
 }

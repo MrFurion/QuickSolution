@@ -43,7 +43,7 @@ public class RegistrationServicesImpl implements RegistrationServices {
         }
         try {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setType(Collections.singleton(Role.ROLE_USER.getRoleName()).toString());
+            user.setRole(Role.ROLE_USER.getRoleName());
             userRepositories.save(user);
             log.info("User saved successfully: " + user.getUsername());
         } catch (Exception e) {

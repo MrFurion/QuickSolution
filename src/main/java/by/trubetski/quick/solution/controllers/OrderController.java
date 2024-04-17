@@ -46,4 +46,26 @@ public class OrderController {
         model.addAttribute("order", orderServices.orderById(id));
         return "orders/showOrder";
     }
+
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable("id") int id, Model model){
+        model.addAttribute("order", orderServices.orderById(id));
+        return "orders/editOrder";
+    }
+
+    @PatchMapping("/{id}")
+    public String updateOrder(@ModelAttribute("order") @Valid OrderFormDto orderFormDto,
+                              BindingResult bindingResult, Model model,
+                              @PathVariable("id") int id,
+                              RedirectAttributes redirectAttributes){
+        try {
+            orderServices.update(id, orderFormDto);
+            redirectAttributes.addFlashAttribute("successMessage", "Order successfully update!");
+            return "redirect:/showOrder";
+        } catch (ValidationException e){
+            model.addAttribute("error", bindingResult.getAllErrors());
+            log.error(bindingResult.toString());
+            return "orders/editOrder";
+        }
+    }
 }

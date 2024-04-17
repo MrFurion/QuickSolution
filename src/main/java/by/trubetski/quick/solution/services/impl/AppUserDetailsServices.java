@@ -5,10 +5,15 @@ import by.trubetski.quick.solution.repositories.UserRepositories;
 import by.trubetski.quick.solution.security.AppUsersDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 
 /**
@@ -36,4 +41,7 @@ public class AppUserDetailsServices implements UserDetailsService {
         }
         return new AppUsersDetails(user.get());
     }
+    private Collection<? extends GrantedAuthority> getAuthorities(User user) {
+        return Collections.singletonList(new SimpleGrantedAuthority(user.getRole()));}
+
 }

@@ -22,5 +22,7 @@
 <h3>Status order</h3>
 <br>
 <p th:text="${order.get().getStatus()}"></p>
+<hr>
+<a th:href="@{/order/{id}/edit(id=${order.get().getId()})}">Edit data</a>
 </body>
 </html>
