@@ -35,7 +35,7 @@ public class RegisterController {
                          BindingResult bindingResult, Model model) {
         userValidator.validate(user, bindingResult);
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             for (ObjectError error : bindingResult.getAllErrors()) {
                 log.error("Validation errors occurred while processing user registration: - " + error.getDefaultMessage());
             }

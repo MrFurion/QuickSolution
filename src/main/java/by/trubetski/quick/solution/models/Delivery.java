@@ -5,12 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Data;
 import org.locationtech.jts.geom.Point;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "Delivery")
 @Data
-public class Delivery implements Serializable {
+public class Delivery {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

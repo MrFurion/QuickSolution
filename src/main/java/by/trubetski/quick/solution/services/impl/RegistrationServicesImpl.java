@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Collections;
+
 import java.util.Optional;
 
 @Service
@@ -23,14 +23,6 @@ public class RegistrationServicesImpl implements RegistrationServices {
     private final UserRepositories userRepositories;
     private final PasswordEncoder passwordEncoder;
 
-    /**
-     * {@inheritDoc}
-     * Check for duplicate email and name in the database. Additionally,
-     * it hashes the password and saves it when all user conditions are met for storing in the database.
-     * Also add roles user.
-     *
-     * @param user The User entity to be created.
-     */
     @Override
     @Transactional
     public void createUser(User user) {
@@ -51,10 +43,12 @@ public class RegistrationServicesImpl implements RegistrationServices {
             throw new RuntimeException("Exception saving user", e);
         }
     }
+
     @Override
     public Optional<User> getPersonByUsername(String username) {
         return userRepositories.findByUsername(username);
     }
+
     @Override
     public Optional<User> getPersonByEmail(String email) {
         return userRepositories.findByEmail(email);

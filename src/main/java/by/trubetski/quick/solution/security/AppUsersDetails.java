@@ -5,17 +5,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Converts the User object into an object that adheres to the UserDetails interface,
  * providing the necessary information for authentication and authorization in Spring Security.
  */
 public class AppUsersDetails implements UserDetails {
+    private static final long serialVersionUID = -3218664053797275995L;
     private final User user;
 
     public AppUsersDetails(User user) {
@@ -57,7 +55,7 @@ public class AppUsersDetails implements UserDetails {
         return true;
     }
 
-    public User getUser(){
+    public User getUser() {
         return this.user;
     }
 }

@@ -11,5 +11,47 @@
         <tr th:text="${user.getUsername}"></tr>
     </table>
 </div>
+<h1> Order </h1>
+<form action="/admin/findAllOrders" method="get">
+    <div>
+        <label for="status">Status Delivery:</label>
+        <select id="status" name="status">
+            <option value="">All Status</option>
+            <option value="New">New</option>
+            <option value="Processing">Processing</option>
+            <option value="OnTheWay">On the Way</option>
+        </select>
+    </div>
+    <div>
+        <label for="courier">Courier:</label>
+        <select id="courier" name="courier">
+            <option value="">Couriers</option>
+            <option value="Appointed">Appointed</option>
+            <option value="null">Not appointed</option>
+        </select>
+    </div>
+    <button type="submit">find</button>
+</form>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Date and status order</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:if="${not #lists.isEmpty(orders)}">
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.getDate() + ' ' + order.getStatus()}"></td>
+            </tr>
+        </th:block>
+        <th:block th:if="${#lists.isEmpty(orders)}">
+            <tr>
+                <td colspan="2">Not results</td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

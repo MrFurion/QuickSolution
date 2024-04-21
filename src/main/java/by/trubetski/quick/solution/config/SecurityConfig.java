@@ -33,7 +33,7 @@ public class SecurityConfig {
      * @return appUserDetailsServices new object your custom class
      */
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         return new AppUserDetailsServices();
     }
 
@@ -50,7 +50,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .formLogin(form-> form
+                .formLogin(form -> form
                         .loginPage(AUTH_LOGIN).permitAll()
                         .loginProcessingUrl("/process_login")
                         .successHandler(((request, response, authentication) -> {
@@ -64,12 +64,12 @@ public class SecurityConfig {
                             }
                         }))
                         .failureUrl("/auth/login?error=true"))
-                .authorizeHttpRequests(auth-> auth
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers(AUTH_LOGIN, "/error", "/register","/logout",
+                        .requestMatchers(AUTH_LOGIN, "/error", "/register", "/logout",
                                 "/static/css/**").permitAll()
                         .anyRequest().authenticated())
-                .logout(logout-> logout
+                .logout(logout -> logout
                         .logoutSuccessUrl(AUTH_LOGIN))
                 .build();
     }
@@ -84,7 +84,7 @@ public class SecurityConfig {
      * @return the {@link PasswordEncoder} used for password verification in the database
      */
     @Bean
-    public AuthenticationManager authenticationManager(AppUserDetailsServices appUserDetailsServices){
+    public AuthenticationManager authenticationManager(AppUserDetailsServices appUserDetailsServices) {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(appUserDetailsServices);
         daoAuthenticationProvider.setPasswordEncoder(getPasswordEncoder());
@@ -93,10 +93,11 @@ public class SecurityConfig {
 
     /**
      * Provides "PasswordEncoder" with used algorithm BCrypt for is hashing password.
+     *
      * @return the {@link BCryptPasswordEncoder} instance for password hashing
      */
     @Bean
-    public PasswordEncoder getPasswordEncoder(){
+    public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

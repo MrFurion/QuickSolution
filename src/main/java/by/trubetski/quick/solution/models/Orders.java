@@ -2,6 +2,7 @@ package by.trubetski.quick.solution.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
 import java.util.Date;
 
 @Entity
@@ -31,7 +32,7 @@ public class Orders {
     public Orders() {
     }
 
-    public Orders( User owner) {
+    public Orders(User owner) {
         this.owner = owner;
     }
 }
