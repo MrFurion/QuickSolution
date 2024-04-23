@@ -30,20 +30,42 @@ public class OrderController {
     public String saveOrder(@ModelAttribute("orders") @Valid OrderFormDto orderForm,
                             BindingResult bindingResult, Model model,
                             RedirectAttributes redirectAttributes) {
-         try {
-             orderServices.save(orderForm);
-             redirectAttributes.addFlashAttribute("successMessage", "Order successfully created!");
-             return "redirect:/user";
-         } catch (ValidationException e){
-             model.addAttribute("error", bindingResult.getAllErrors());
-             log.error(bindingResult.toString());
-             return "orders/createOrder";
-         }
+        try {
+            orderServices.save(orderForm);
+            redirectAttributes.addFlashAttribute("successMessage", "Order successfully created!");
+            return "redirect:/user";
+        } catch (ValidationException e) {
+            model.addAttribute("error", bindingResult.getAllErrors());
+            log.error(bindingResult.toString());
+            return "orders/createOrder";
+        }
     }
 
     @GetMapping("/{id}")
     public String showOrder(@PathVariable("id") int id, Model model) {
         model.addAttribute("order", orderServices.orderById(id));
         return "orders/showOrder";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditOrderPage(@PathVariable int id, Model model) {
+        model.addAttribute("order", orderServices.orderById(id));
+        return "orders/editOrder";
+    }
+
+    @PutMapping("/{id}")
+    public String updateOrder(@ModelAttribute("order") @Valid OrderFormDto orderFormDto,
+                              BindingResult bindingResult, Model model,
+                              @PathVariable("id") int id,
+                              RedirectAttributes redirectAttributes) {
+        try {
+            orderServices.update(id, orderFormDto);
+            redirectAttributes.addFlashAttribute("successMessage", "Order update!");
+            return "redirect:/showOrder";
+        } catch (ValidationException e) {
+            model.addAttribute("error", bindingResult.getAllErrors());
+            log.error(bindingResult.toString());
+            return "orders/editOrder";
+        }
     }
 }

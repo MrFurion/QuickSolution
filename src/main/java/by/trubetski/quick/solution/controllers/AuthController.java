@@ -11,9 +11,4 @@ public class AuthController {
         return "auth/login";
 
     }
-
-    @GetMapping("/testPage")
-    public String testPage() {
-        return "auth/testPage";
-    }
 }
