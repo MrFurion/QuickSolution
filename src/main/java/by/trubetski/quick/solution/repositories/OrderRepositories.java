@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface OrderRepositories extends JpaRepository<Orders, Integer> {
-    @Query("FROM Orders where status = :status and (:courierId is null or delivery.courierId = :courierId)")
-    List<Orders> getOrdersByStatusAndDelivery_CourierId(String status, String courierId);
+    @Query("FROM Orders where status = :status and (delivery.courierId = :courierId)")
+    List<Orders> getOrdersByStatusAndDelivery_CourierId(String status, Integer courierId);
 }

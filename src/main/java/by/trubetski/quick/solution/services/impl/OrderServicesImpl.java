@@ -24,6 +24,7 @@ import org.springframework.validation.BindingResult;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 @Service
 @Transactional(readOnly = true)
@@ -88,10 +89,17 @@ public class OrderServicesImpl implements OrderServices {
     }
 
     public void update(int id, OrderFormDto orderFormDto) {
-
+    }
+    @Transactional
+    public void update(int id, String orderStatus, int courierId) {
+        Optional<Orders> optionalOrder = orderRepositories.findById(id);
+        Orders order = optionalOrder.get();
+        order.getDelivery().setCourierId(courierId);
+        order.setStatus(orderStatus);
+        orderRepositories.save(order);
     }
 
-    public List<Orders> findOrdersByStatus(String statusDelivery, String courierPresence) {
-        return orderRepositories.getOrdersByStatusAndDelivery_CourierId(statusDelivery, courierPresence);
+    public List<Orders> findOrdersByStatus(String statusDelivery, Integer courierId) {
+        return orderRepositories.getOrdersByStatusAndDelivery_CourierId(statusDelivery, courierId);
     }
 }

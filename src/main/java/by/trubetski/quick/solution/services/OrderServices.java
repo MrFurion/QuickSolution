@@ -33,13 +33,14 @@ public interface OrderServices {
      * @param orderFormDto
      */
     void update(int id, OrderFormDto orderFormDto);
+    void update(int id, String orderStatus, int courierId);
 
     /**
      * Find all orders with present parameters.
      *
      * @param statusDelivery
-     * @param courierPresence
+     * @param courierId
      * @return delivery with parameters.
      */
-    List<Orders> findOrdersByStatus(String statusDelivery, String courierPresence);
+    List<Orders> findOrdersByStatus(String statusDelivery, Integer courierId);
 }
