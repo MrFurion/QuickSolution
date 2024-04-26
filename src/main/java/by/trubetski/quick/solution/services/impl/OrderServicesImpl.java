@@ -1,5 +1,6 @@
 package by.trubetski.quick.solution.services.impl;
 
+import by.trubetski.quick.solution.exception.OrderNotFoundException;
 import by.trubetski.quick.solution.exception.ValidationException;
 import by.trubetski.quick.solution.models.Delivery;
 import by.trubetski.quick.solution.models.Item;
@@ -24,7 +25,6 @@ import org.springframework.validation.BindingResult;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 
 @Service
 @Transactional(readOnly = true)
@@ -89,17 +89,26 @@ public class OrderServicesImpl implements OrderServices {
     }
 
     public void update(int id, OrderFormDto orderFormDto) {
-    }
-    @Transactional
-    public void update(int id, String orderStatus, int courierId) {
-        Optional<Orders> optionalOrder = orderRepositories.findById(id);
-        Orders order = optionalOrder.get();
-        order.getDelivery().setCourierId(courierId);
-        order.setStatus(orderStatus);
+        Orders order = new Orders();
         orderRepositories.save(order);
     }
 
+    @Transactional
+    public void update(int id, String orderStatus, int courierId){
+        Optional<Orders> optionalOrder = orderRepositories.findById(id);
+        if (optionalOrder.isPresent()) {
+            Orders order = optionalOrder.get();
+            order.getDelivery().setCourierId(courierId);
+            order.setStatus(orderStatus);
+            orderRepositories.save(order);
+        } else {
+            log.error("order not found by id");
+            throw new OrderNotFoundException("order not found");
+
+        }
+    }
+
     public List<Orders> findOrdersByStatus(String statusDelivery, Integer courierId) {
-        return orderRepositories.getOrdersByStatusAndDelivery_CourierId(statusDelivery, courierId);
+        return orderRepositories.getOrdersByStatusAndDeliveryCourierId(statusDelivery, courierId);
     }
 }

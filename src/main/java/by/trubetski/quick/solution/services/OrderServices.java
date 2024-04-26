@@ -33,6 +33,14 @@ public interface OrderServices {
      * @param orderFormDto
      */
     void update(int id, OrderFormDto orderFormDto);
+
+    /**
+     * Update order by id.
+     * Allows you to change an order by its ID.
+     * @param id
+     * @param orderStatus
+     * @param courierId
+     */
     void update(int id, String orderStatus, int courierId);
 
     /**

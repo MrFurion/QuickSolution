@@ -34,7 +34,7 @@ public class AdminController {
     }
     @PostMapping("/updateOrderStatus")
     public String updateOrder(@RequestParam("orderId") int orderId,@RequestParam("newStatus") String status,
-                                    @RequestParam("courierId") int courierId){
+                                    @RequestParam("courierId") int courierId) {
         orderServices.update(orderId, status, courierId);
         return "/users/adminPage";
     }
