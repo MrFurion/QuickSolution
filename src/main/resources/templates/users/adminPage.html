@@ -27,7 +27,7 @@
     <div>
         <label for="status">Status Delivery:</label>
         <select id="status" name="status">
-            <option value="">All Status</option>
+            <option value="not status">All Status</option>
             <option value="New">New</option>
             <option value="Processing">Processing</option>
             <option value="Confirmed">Confirmed</option>
@@ -41,8 +41,7 @@
         <label for="courier">Courier:</label>
         <select id="courier" name="courier">
             <option value="0">All Couriers</option>
-            <option value="1">Appointed</option>
-            <option value="0">Not Appointed</option>
+            <option th:each="courier : ${couriers}" th:value="${courier.id}" th:text="${courier.username}"></option>
         </select>
     </div>
     <button type="submit">Find</button>
@@ -63,7 +62,7 @@
                         <span th:text="'Time order: ' + ${order.getDate()} + '. '"></span>
                         <span th:text="'Order status: ' + ${order.getStatus()} + '. '"></span>
                         <select name="newStatus">
-                            <option value="NEW" th:selected="${order.status == 'NEW'}">New</option>
+                            <option value="New" th:selected="${order.status == 'New'}">New</option>
                             <option value="Processing" th:selected="${order.status == 'Processing'}">Processing</option>
                             <option value="Confirmed" th:selected="${order.status == 'Confirmed'}">Confirmed</option>
                             <option value="Cancelled" th:selected="${order.status == 'Cancelled'}">Cancelled</option>

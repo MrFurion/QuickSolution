@@ -21,6 +21,7 @@ public class AdminController {
     @GetMapping
     public String adminPage(Model model) {
         model.addAttribute("users", userServices.findAllCourier());
+        model.addAttribute("couriers", userServices.findAllCourier());
         return "users/adminPage";
     }
 

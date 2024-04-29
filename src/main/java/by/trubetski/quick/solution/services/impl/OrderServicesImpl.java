@@ -32,6 +32,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OrderServicesImpl implements OrderServices {
 
+    public static final String NOT_STATUS = "not status";
     private final OrderRepositories orderRepositories;
     private final UserServices userServices;
     private final DeliveryRepositories deliveryRepositories;
@@ -102,13 +103,21 @@ public class OrderServicesImpl implements OrderServices {
             order.setStatus(orderStatus);
             orderRepositories.save(order);
         } else {
-            log.error("order not found by id");
-            throw new OrderNotFoundException("order not found");
+            log.error("order not found by id " + id);
+            throw new OrderNotFoundException("order not found " + id);
 
         }
     }
 
     public List<Orders> findOrdersByStatus(String statusDelivery, Integer courierId) {
-        return orderRepositories.getOrdersByStatusAndDeliveryCourierId(statusDelivery, courierId);
+        if (courierId == 0 && !statusDelivery.equals(NOT_STATUS)) {
+            return orderRepositories.getOrdersByStatus(statusDelivery);
+        } else if ((courierId != 0) && statusDelivery.equals(NOT_STATUS)) {
+            return orderRepositories.getOrdersByDeliveryCourierId(courierId);
+        } else if (courierId != 0) {
+            return orderRepositories.getOrdersByStatusAndDeliveryCourierId(statusDelivery, courierId);
+        } else {
+            return orderRepositories.getOrdersByStatusOrDeliveryCourierId(statusDelivery, courierId);
+        }
     }
 }

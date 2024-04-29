@@ -15,7 +15,7 @@ public interface UserServices {
     List<Orders> userOrder();
 
     /**
-     * Get the user's registration number.
+     * Get ID of currently authenticated user.
      * SecurityContext from Spring Security is used.
      * AppUserDetail is also used, which is a wrapper for the User object.
      *
@@ -27,13 +27,13 @@ public interface UserServices {
      * Find a user by id.
      * The received indication number is used.
      *
-     * @param id
+     * @param id User ID
      * @return User by id
      */
     User findById(int id);
 
     /**
-     * Find all User with role courier.
+     * Find all User with role {@Link Role.ROLE_COURIER}.
      *
      * @return a List of user with role courier.
      */

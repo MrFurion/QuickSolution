@@ -37,7 +37,6 @@ public class SecurityConfig {
         return new AppUserDetailsServices();
     }
 
-
     /**
      * Configuration Spring Security for input form entries,
      * determination the rules authorization and indicate URL for successful and fail authentication.
