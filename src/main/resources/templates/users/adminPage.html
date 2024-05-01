@@ -2,52 +2,90 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>User Details</title>
+    <title>User and Order Details</title>
+    <link rel="stylesheet" href="/static/css/logonPage/adminPage.css"/>
+    <script type="text/javascript" src="/static/js/loginPage/adminPage.js"></script>
 </head>
 <body>
 <h1>Courier Details</h1>
 <div>
-    <table th:each="user : ${users}">
-        <tr th:text="${user.getUsername}"></tr>
+    <table>
+        <thead>
+        <tr>
+            <th>Username</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.getUsername()}"></td>
+        </tr>
+        </tbody>
     </table>
 </div>
-<h1> Order </h1>
+<h1> Order Details </h1>
 <form action="/admin/findAllOrders" method="get">
     <div>
         <label for="status">Status Delivery:</label>
         <select id="status" name="status">
-            <option value="">All Status</option>
+            <option value="not status">All Status</option>
             <option value="New">New</option>
             <option value="Processing">Processing</option>
-            <option value="OnTheWay">On the Way</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Cancelled">Cancelled</option>
+            <option value="In Transit">In Transit</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Completed">Completed</option>
         </select>
     </div>
     <div>
         <label for="courier">Courier:</label>
         <select id="courier" name="courier">
-            <option value="">Couriers</option>
-            <option value="Appointed">Appointed</option>
-            <option value="null">Not appointed</option>
+            <option value="0">All Couriers</option>
+            <option th:each="courier : ${couriers}" th:value="${courier.id}" th:text="${courier.username}"></option>
         </select>
     </div>
-    <button type="submit">find</button>
+    <button type="submit">Find</button>
 </form>
 <div>
     <table>
         <thead>
         <tr>
-            <th>Date and status order</th>
+            <th>Date and Status</th>
         </tr>
         </thead>
         <tbody>
         <th:block th:if="${not #lists.isEmpty(orders)}">
-            <tr th:each="order : ${orders}">
-                <td th:text="${order.getDate() + ' ' + order.getStatus()}"></td>
+            <tr th:each="order : ${orders}" class="order-item" data-order-id="${order.id}">
+                <form th:action="@{/admin/updateOrderStatus}" method="post">
+                    <input type="hidden" name="orderId" th:value="${order.id}">
+                    <td>
+                        <span th:text="'Time order: ' + ${order.getDate()} + '. '"></span>
+                        <span th:text="'Order status: ' + ${order.getStatus()} + '. '"></span>
+                        <select name="newStatus">
+                            <option value="New" th:selected="${order.status == 'New'}">New</option>
+                            <option value="Processing" th:selected="${order.status == 'Processing'}">Processing</option>
+                            <option value="Confirmed" th:selected="${order.status == 'Confirmed'}">Confirmed</option>
+                            <option value="Cancelled" th:selected="${order.status == 'Cancelled'}">Cancelled</option>
+                            <option value="In Transit" th:selected="${order.status == 'In Transit'}">In Transit</option>
+                            <option value="Delivered" th:selected="${order.status == 'Delivered'}">Delivered</option>
+                            <option value="Completed" th:selected="${order.status == 'Completed'}">Completed</option>
+                        </select>
+                        <span th:text="'Delivery status: ' + ${order.delivery.getStatus()} + '. '"></span>
+                        <select name="courierId">
+                            <option value="0" th:selected="${order.delivery.getCourierId() == 0}">Not courier</option>
+                            <option th:each="courier : ${couriers}"
+                                    th:value="${courier.id}"
+                                    th:selected="${courier.id == order.delivery.getCourierId()}"
+                                    th:text="${courier.username}"></option>
+                        </select>
+                        <button type="submit">Update</button>
+                    </td>
+                </form>
             </tr>
         </th:block>
         <th:block th:if="${#lists.isEmpty(orders)}">
             <tr>
-                <td colspan="2">Not results</td>
+                <td colspan="2">No orders found</td>
             </tr>
         </th:block>
         </tbody>

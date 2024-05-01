@@ -47,7 +47,7 @@ public class UserServicesImpl implements UserServices {
     }
 
     public List<User> findAllCourier() {
-        return userRepositories.getUserByRoleCourier(Role.ROLE_COURIER.getRoleName());
+        return userRepositories.getUserByRole(Role.ROLE_COURIER.getRoleName());
     }
 
     public void save(User user) {

@@ -15,9 +15,9 @@ public interface RegistrationServices {
      *
      * @param user The User entity to be created.
      */
-    public void createUser(User user);
+    void createUser(User user);
 
-    public Optional<User> getPersonByUsername(String username);
+    Optional<User> getPersonByUsername(String username);
 
-    public Optional<User> getPersonByEmail(String email);
+    Optional<User> getPersonByEmail(String email);
 }

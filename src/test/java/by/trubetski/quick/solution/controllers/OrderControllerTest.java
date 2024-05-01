@@ -23,7 +23,7 @@ import static org.mockito.Mockito.doThrow;
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(OrderController.class)
 @AutoConfigureMockMvc
-public class OrderControllerTest {
+class OrderControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -36,7 +36,7 @@ public class OrderControllerTest {
     }
 
     @Test
-    public void testSaveOrderSuccess() throws Exception {
+    void testSaveOrderSuccess() throws Exception {
 
         mockMvc.perform(MockMvcRequestBuilders.post("/order/create")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -62,7 +62,7 @@ public class OrderControllerTest {
     }
 
     @Test
-    public void testSaveOrderValidationError() throws Exception {
+    void testSaveOrderValidationError() throws Exception {
 
         doThrow(new ValidationException("Validation error")).when(orderServices).save(any(OrderFormDto.class));
         mockMvc.perform(MockMvcRequestBuilders.post("/order/create")
