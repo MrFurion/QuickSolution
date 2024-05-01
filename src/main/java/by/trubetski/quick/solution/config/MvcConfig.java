@@ -13,7 +13,7 @@ public class MvcConfig implements WebMvcConfigurer {
      * and the corresponding URLs where they are available.
      * In this case, this is necessary to work correctly with the Thymeleaf template creation mechanism.
      *
-     * @param registry
+     * @param registry ResourceHandlerRegistry.
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

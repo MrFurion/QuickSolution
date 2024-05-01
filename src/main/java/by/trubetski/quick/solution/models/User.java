@@ -5,12 +5,14 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+
 import java.util.List;
 
 @Entity
 @Table(name = "users")
 @Data
 public class User {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +28,8 @@ public class User {
     @Column(name = "password")
     @NotEmpty(message = "Password should be not empty")
     private String password;
-    @Column(name = "type")
-    private String type;
+    @Column(name = "role")
+    private String role;
     @OneToMany(mappedBy = "owner")
     private List<Orders> orders;
     @OneToOne(mappedBy = "users")

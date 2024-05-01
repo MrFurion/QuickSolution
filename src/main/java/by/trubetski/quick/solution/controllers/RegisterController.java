@@ -21,13 +21,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class RegisterController {
 
+    public static final String AUTH_REGISTRATION = "auth/registration";
     private final RegistrationServices registrationServices;
     private final UserValidator userValidator;
 
     @GetMapping()
     public String newPerson(Model model) {
         model.addAttribute("user", new User());
-        return "auth/registration";
+        return AUTH_REGISTRATION;
     }
 
     @PostMapping()
@@ -35,11 +36,11 @@ public class RegisterController {
                          BindingResult bindingResult, Model model) {
         userValidator.validate(user, bindingResult);
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             for (ObjectError error : bindingResult.getAllErrors()) {
                 log.error("Validation errors occurred while processing user registration: - " + error.getDefaultMessage());
             }
-            return "auth/registration";
+            return AUTH_REGISTRATION;
         }
         try {
             registrationServices.createUser(user);
@@ -48,7 +49,7 @@ public class RegisterController {
         } catch (Exception e) {
             log.error("Mistake during user registration", e);
             model.addAttribute("error", "Registration failed. Please try again.");
-            return "auth/registration";
+            return AUTH_REGISTRATION;
         }
     }
 }

@@ -1,5 +1,6 @@
 package by.trubetski.quick.solution.services.impl;
 
+import by.trubetski.quick.solution.exception.OrderNotFoundException;
 import by.trubetski.quick.solution.exception.ValidationException;
 import by.trubetski.quick.solution.models.Delivery;
 import by.trubetski.quick.solution.models.Item;
@@ -11,6 +12,7 @@ import by.trubetski.quick.solution.repositories.OrderRepositories;
 import by.trubetski.quick.solution.services.OrderServices;
 import by.trubetski.quick.solution.services.UserServices;
 import by.trubetski.quick.solution.services.ValidationServices;
+import by.trubetski.quick.solution.util.enums.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.locationtech.jts.geom.Coordinate;
@@ -19,7 +21,9 @@ import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
+
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,6 +32,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OrderServicesImpl implements OrderServices {
 
+    public static final String NOT_STATUS = "not status";
     private final OrderRepositories orderRepositories;
     private final UserServices userServices;
     private final DeliveryRepositories deliveryRepositories;
@@ -37,7 +42,7 @@ public class OrderServicesImpl implements OrderServices {
     @Transactional
     public void save(OrderFormDto orderFormDto) {
         BindingResult bindingResult = validationServices.validate(orderFormDto);
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             throw new ValidationException("error of validation");
         }
 
@@ -45,7 +50,7 @@ public class OrderServicesImpl implements OrderServices {
 
         Orders orders = new Orders();
         orders.setDate(new Date());
-        orders.setStatus("New");
+        orders.setStatus(OrderStatus.NEW.getStatusName());
         orders.setOwner(userServices.findById(id));
 
         Delivery delivery = new Delivery();
@@ -54,7 +59,7 @@ public class OrderServicesImpl implements OrderServices {
         delivery.setFinishAddress(orderFormDto.getFinishApartment().toString());
 
         Double latitudeStart = orderFormDto.getStartApartment().getLat();
-        Double longitudeStart= orderFormDto.getStartApartment().getLng();
+        Double longitudeStart = orderFormDto.getStartApartment().getLng();
 
         Double latitudeFinish = orderFormDto.getFinishApartment().getLat();
         Double longitudeFinish = orderFormDto.getFinishApartment().getLng();
@@ -79,8 +84,40 @@ public class OrderServicesImpl implements OrderServices {
         item.setOrders(orders);
         itemRepositories.save(item);
     }
-    public Optional<Orders> orderById(int id){
-        return orderRepositories.findById(id);
 
+    public Optional<Orders> orderById(int id) {
+        return orderRepositories.findById(id);
+    }
+
+    public void update(int id, OrderFormDto orderFormDto) {
+        Orders order = new Orders();
+        orderRepositories.save(order);
+    }
+
+    @Transactional
+    public void update(int id, String orderStatus, int courierId){
+        Optional<Orders> optionalOrder = orderRepositories.findById(id);
+        if (optionalOrder.isPresent()) {
+            Orders order = optionalOrder.get();
+            order.getDelivery().setCourierId(courierId);
+            order.setStatus(orderStatus);
+            orderRepositories.save(order);
+        } else {
+            log.error("order not found by id " + id);
+            throw new OrderNotFoundException("order not found " + id);
+
+        }
+    }
+
+    public List<Orders> findOrdersByStatus(String statusDelivery, Integer courierId) {
+        if (courierId == 0 && !statusDelivery.equals(NOT_STATUS)) {
+            return orderRepositories.getOrdersByStatus(statusDelivery);
+        } else if ((courierId != 0) && statusDelivery.equals(NOT_STATUS)) {
+            return orderRepositories.getOrdersByDeliveryCourierId(courierId);
+        } else if (courierId != 0) {
+            return orderRepositories.getOrdersByStatusAndDeliveryCourierId(statusDelivery, courierId);
+        } else {
+            return orderRepositories.getOrdersByStatusOrDeliveryCourierId(statusDelivery, courierId);
+        }
     }
 }

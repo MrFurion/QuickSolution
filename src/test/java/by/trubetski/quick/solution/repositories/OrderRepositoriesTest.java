@@ -11,13 +11,13 @@ import org.springframework.context.annotation.PropertySource;
 
 @DataJpaTest
 @PropertySource("classpath:test.properties")
-public class OrderRepositoriesTest {
+class OrderRepositoriesTest {
 
     @Autowired
     private OrderRepositories orderRepositories;
 
     @Test
-    public void testSaveOrder() {
+    void testSaveOrder() {
         Orders order = new Orders();
         order.setStatus("New");
         Orders savedOrder = orderRepositories.save(order);

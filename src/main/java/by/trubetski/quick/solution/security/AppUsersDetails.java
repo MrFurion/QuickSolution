@@ -2,14 +2,18 @@ package by.trubetski.quick.solution.security;
 
 import by.trubetski.quick.solution.models.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Converts the User object into an object that adheres to the UserDetails interface,
  * providing the necessary information for authentication and authorization in Spring Security.
  */
 public class AppUsersDetails implements UserDetails {
+    private static final long serialVersionUID = -3218664053797275995L;
     private final User user;
 
     public AppUsersDetails(User user) {
@@ -18,7 +22,7 @@ public class AppUsersDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singleton(new SimpleGrantedAuthority(user.getRole()));
     }
 
     @Override
@@ -51,7 +55,7 @@ public class AppUsersDetails implements UserDetails {
         return true;
     }
 
-    public User getUser(){
+    public User getUser() {
         return this.user;
     }
 }
