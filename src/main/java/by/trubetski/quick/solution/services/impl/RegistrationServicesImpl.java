@@ -42,6 +42,7 @@ public class RegistrationServicesImpl implements RegistrationServices {
         if (bindingResult.hasErrors()){
             throw new ValidationException("error of validation");
         }
+
         duplicateCheck(user);
         save(user, role);
     }
