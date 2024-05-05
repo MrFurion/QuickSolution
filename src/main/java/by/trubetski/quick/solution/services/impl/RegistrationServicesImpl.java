@@ -3,10 +3,13 @@ package by.trubetski.quick.solution.services.impl;
 import by.trubetski.quick.solution.exception.EmailAlreadyExistsException;
 import by.trubetski.quick.solution.exception.UsernameAlreadyExistsException;
 import by.trubetski.quick.solution.exception.ValidationException;
+import by.trubetski.quick.solution.models.CourierInf;
 import by.trubetski.quick.solution.models.User;
+import by.trubetski.quick.solution.repositories.CourierInfoRepositories;
 import by.trubetski.quick.solution.repositories.UserRepositories;
 import by.trubetski.quick.solution.services.RegistrationServices;
 import by.trubetski.quick.solution.services.ValidationServices;
+import by.trubetski.quick.solution.util.enums.CourierStatus;
 import by.trubetski.quick.solution.util.enums.Role;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,37 +27,45 @@ import java.util.Optional;
 public class RegistrationServicesImpl implements RegistrationServices {
 
     public static final String EXCEPTION_SAVING_USER = "Exception saving user";
+    public static final String ROLE_USER = "ROLE_USER";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
     private final UserRepositories userRepositories;
     private final PasswordEncoder passwordEncoder;
     private final ValidationServices validationServices;
+    private final CourierInfoRepositories courierInfoRepositories;
 
     @Override
     @Transactional
     public void createUser(User user) {
-        String role = "User";
+        String role = Role.ROLE_USER.getRoleName();
         duplicateCheck(user);
         save(user, role);
     }
 
     @Transactional
-    public void createCourier(User user, String role){
+    public void createUserByRole(User user, String role) {
         BindingResult bindingResult = validationServices.validate(user);
-        if (bindingResult.hasErrors()){
-            throw new ValidationException("error of validation");
+        if (bindingResult.hasErrors()) {
+            throw new ValidationException("Please try again");
         }
 
         duplicateCheck(user);
         save(user, role);
     }
-    public void save(User user, String role){
+
+    public void save(User user, String role) {
         try {
-           if (role.equals("User")){
-               user.setRole(Role.ROLE_USER.getRoleName());
-           } else if (role.equals("Admin")) {
-               user.setRole(Role.ROLE_ADMIN.getRoleName());
-           } else {
-               user.setRole(Role.ROLE_COURIER.getRoleName());
-           }
+            switch (role) {
+                case ROLE_USER -> user.setRole(Role.ROLE_USER.getRoleName());
+                case ROLE_ADMIN -> user.setRole(Role.ROLE_ADMIN.getRoleName());
+                default -> {
+                    user.setRole(Role.ROLE_COURIER.getRoleName());
+                    CourierInf courierInf = new CourierInf();
+                    courierInf.setStatus(CourierStatus.Free.getStatusName());
+                    courierInf.setUsers(user);
+                    courierInfoRepositories.save(courierInf);
+                }
+            }
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepositories.save(user);
             log.info("User saved successfully: " + user.getUsername());
@@ -63,13 +74,14 @@ public class RegistrationServicesImpl implements RegistrationServices {
             throw new RuntimeException(EXCEPTION_SAVING_USER, e);
         }
     }
-    public void duplicateCheck(User user){
+
+    public void duplicateCheck(User user) {
         if (userRepositories.findByUsername(user.getUsername()).isPresent()) {
-            throw new UsernameAlreadyExistsException("Username already exists");
+            throw new UsernameAlreadyExistsException("Username incorrect");
         }
 
         if (userRepositories.findByEmail(user.getEmail()).isPresent()) {
-            throw new EmailAlreadyExistsException("Email already exists");
+            throw new EmailAlreadyExistsException("Email incorrect");
         }
     }
 

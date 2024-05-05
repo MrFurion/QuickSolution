@@ -6,7 +6,7 @@
 </head>
 <body>
 <h2>Registration</h2>
-<form th:action="@{/admin/crateNewCourier}" method="post" th:object="${user}">
+<form th:action="@{/admin/createNewCourier}" method="post" th:object="${user}">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required minlength="4" maxlength="30"><br><br>
     <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="${user.username}">error</div>
@@ -24,8 +24,8 @@
     <div>
         <label for="role">Status user:</label>
         <select id="role" name="role">
-            <option value="Courier">Courier</option>
-            <option value="Admin">Admin</option>
+            <option value="ROLE_COURIER">Courier</option>
+            <option value="ROLE_ADMIN">Admin</option>
         </select>
     </div>
 
