@@ -1,22 +1,27 @@
 package by.trubetski.quick.solution.controllers;
 
+import by.trubetski.quick.solution.models.User;
 import by.trubetski.quick.solution.services.OrderServices;
+import by.trubetski.quick.solution.services.RegistrationServices;
 import by.trubetski.quick.solution.services.UserServices;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin")
 @RequiredArgsConstructor
+@Slf4j
 public class AdminController {
 
+    private static final String AUTH_CREATE_COURIER = "auth/createCourier";
     private final UserServices userServices;
     private final OrderServices orderServices;
+    private final RegistrationServices registrationServices;
 
     @GetMapping
     public String adminPage(Model model) {
@@ -33,10 +38,32 @@ public class AdminController {
         adminPage(model);
         return "/users/adminPage";
     }
+
     @PostMapping("/updateOrderStatus")
-    public String updateOrder(@RequestParam("orderId") int orderId,@RequestParam("newStatus") String status,
-                                    @RequestParam("courierId") int courierId) {
+    public String updateOrder(@RequestParam("orderId") int orderId, @RequestParam("newStatus") String status,
+                              @RequestParam("courierId") int courierId) {
         orderServices.update(orderId, status, courierId);
         return "/users/adminPage";
+    }
+
+    @GetMapping("/pageCreateCourier")
+    public String pageCrateCourier(Model model) {
+        model.addAttribute("user", new User());
+        return AUTH_CREATE_COURIER;
+    }
+
+    @PostMapping("/createNewCourier")
+    public String createNewCourier(@ModelAttribute("user") @Valid User user,
+                                   BindingResult bindingResult, Model model,
+                                   @RequestParam("role") String role) {
+        try {
+            registrationServices.createUserByRole(user, role);
+            model.addAttribute("successMessage", user.getUsername() + " successful create");
+            return AUTH_CREATE_COURIER;
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            log.error("Cannot create courier role: {}", bindingResult.toString());
+            return AUTH_CREATE_COURIER;
+        }
     }
 }

@@ -36,7 +36,7 @@ public class OrderController {
             return "redirect:/user";
         } catch (ValidationException e) {
             model.addAttribute("error", bindingResult.getAllErrors());
-            log.error(bindingResult.toString());
+            log.error("Cannot create order: {}", bindingResult);
             return "orders/createOrder";
         }
     }
@@ -64,7 +64,7 @@ public class OrderController {
             return "redirect:/showOrder";
         } catch (ValidationException e) {
             model.addAttribute("error", bindingResult.getAllErrors());
-            log.error(bindingResult.toString());
+            log.error("Cannot update order: {}", bindingResult);
             return "orders/editOrder";
         }
     }
