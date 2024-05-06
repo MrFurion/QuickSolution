@@ -29,6 +29,7 @@ public class RegistrationServicesImpl implements RegistrationServices {
     public static final String EXCEPTION_SAVING_USER = "Exception saving user";
     public static final String ROLE_USER = "ROLE_USER";
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    public static final String ROLE_COURIER = "ROLE_COURIER";
     private final UserRepositories userRepositories;
     private final PasswordEncoder passwordEncoder;
     private final ValidationServices validationServices;
@@ -53,26 +54,44 @@ public class RegistrationServicesImpl implements RegistrationServices {
         save(user, role);
     }
 
-    public void save(User user, String role) {
+
+    public User save(User user, String role) {
         try {
             switch (role) {
-                case ROLE_USER -> user.setRole(Role.ROLE_USER.getRoleName());
-                case ROLE_ADMIN -> user.setRole(Role.ROLE_ADMIN.getRoleName());
-                default -> {
-                    user.setRole(Role.ROLE_COURIER.getRoleName());
-                    CourierInf courierInf = new CourierInf();
-                    courierInf.setStatus(CourierStatus.Free.getStatusName());
-                    courierInf.setUsers(user);
-                    courierInfoRepositories.save(courierInf);
+                case ROLE_USER -> {
+                    return createUser(user, Role.ROLE_USER);
                 }
+                case ROLE_ADMIN -> {
+                    return createUser(user, Role.ROLE_ADMIN);
+                }
+                case ROLE_COURIER -> {
+                    return createCourier(user);
+                }
+                default -> throw new ValidationException("unknown user role");
             }
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepositories.save(user);
-            log.info("User saved successfully: " + user.getUsername());
+        } catch (ValidationException ve) {
+            throw ve;
         } catch (Exception e) {
             log.error(EXCEPTION_SAVING_USER, e);
             throw new RuntimeException(EXCEPTION_SAVING_USER, e);
         }
+    }
+
+    private User createUser(User user, Role role) {
+        user.setRole(role.getRoleName());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User savedUser = userRepositories.save(user);
+        log.info("User saved successfully: " + user.getUsername());
+        return savedUser;
+    }
+
+    private User createCourier(User user) {
+        User savedUser = createUser(user, Role.ROLE_COURIER);
+        CourierInf courierInf = new CourierInf();
+        courierInf.setStatus(CourierStatus.Free.getStatusName());
+        courierInf.setUsers(savedUser);
+        courierInfoRepositories.save(courierInf);
+        return savedUser;
     }
 
     public void duplicateCheck(User user) {

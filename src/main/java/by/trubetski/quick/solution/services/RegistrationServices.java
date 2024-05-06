@@ -30,7 +30,7 @@ public interface RegistrationServices {
      * @param user The User entity to be created.
      * @param role Role users
      */
-    void save(User user, String role);
+    User save(User user, String role);
 
     /**
      * Check for duplicate email and name in the database.
