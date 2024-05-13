@@ -17,7 +17,7 @@
     <table th:each="order : ${courier}">
         <tr>
             <td>
-                <a th:href="@{/curier/{id}(id=${order.getId()})}"
+                <a th:href="@{/courier/{id}(id=${order.getId()})}"
                    th:text="${'Registered time : ' + #dates.format(order.getDate(), 'yyyy-MM-dd HH:mm')}"
                    style="color: chocolate"></a>
             </td>

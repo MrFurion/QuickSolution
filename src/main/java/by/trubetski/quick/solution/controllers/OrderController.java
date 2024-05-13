@@ -36,7 +36,7 @@ public class OrderController {
             return "redirect:/user";
         } catch (ValidationException e) {
             model.addAttribute("error", bindingResult.getAllErrors());
-            log.error("Cannot create order: {}", bindingResult);
+            log.error("Cannot create order: {}", bindingResult.toString());
             return "orders/createOrder";
         }
     }
