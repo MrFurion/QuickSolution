@@ -29,6 +29,7 @@ public interface RegistrationServices {
      *
      * @param user The User entity to be created.
      * @param role Role users
+     * @return method save User
      */
     User save(User user, String role);
 
