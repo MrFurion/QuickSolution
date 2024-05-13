@@ -65,6 +65,7 @@ public class SecurityConfig {
                         .failureUrl("/auth/login?error=true"))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/courier/**").hasAnyRole("ADMIN", "COURIER")
                         .requestMatchers(AUTH_LOGIN, "/error", "/register", "/logout",
                                 "/static/css/**").permitAll()
                         .anyRequest().authenticated())

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript" src="/static/js/loginPage/orderInfo.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Your order</title>
+</head>
+<body>
+<h1>Detailed information about the order</h1>
+<br>
+<h2>Your start address</h2>
+<br>
+<p th:text="${infOrder.get().getDelivery().getStartAddress()}"></p>
+<br>
+<h2>Your finish address</h2>
+<br>
+<p th:text="${infOrder.get().getDelivery().getFinishAddress()}"></p>
+<br>
+<h2>Time registration of order</h2>
+<br>
+<p th:text="${infOrder.get().getDate()}"></p>
+<br>
+<h3>Status Delivery</h3>
+<br>
+<p th:text="${infOrder.get().getDelivery().getStatus()}"></p>
+<p>Status: <span id="status" th:text="${infOrder.get().getDelivery().getStatus()}"></span></p>
+
+<form id="statusForm" th:action="@{/courier/update}" th:method="post">
+    <input type="hidden" id="deliveryId" name="deliveryId" th:value="${infOrder.get().getDelivery().getId()}">
+    <label for="statusSelect">Select Status:</label>
+    <select id="statusSelect" name="status">
+        <option value="IN_TRANSIT">In transit</option>
+        <option value="DELIVERED">Delivered</option>
+    </select>
+    <button type="submit">Update Status</button>
+</form>
+<hr>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:if="${courier.isEmpty()}">
+    <p style="color: red">you currently do not have any orders</p>
+    <hr/>
+</div>
+
+<div th:if="${!courier.isEmpty()}">
+    <hr/>
+    <p style="color: blue">You have orders :</p>
+    <br/>
+    <table th:each="order : ${courier}">
+        <tr>
+            <td>
+                <a th:href="@{/curier/{id}(id=${order.getId()})}"
+                   th:text="${'Registered time : ' + #dates.format(order.getDate(), 'yyyy-MM-dd HH:mm')}"
+                   style="color: chocolate"></a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
